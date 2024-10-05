@@ -1,0 +1,70 @@
+/* Estil dels paràgrafs d'error dins del formulari */
+form .error p {
+    margin: 10px 0; 
+    align-items: center;
+}
+
+/* Icona d'error dins del formulari */
+form .error i {
+    margin-right: 5px;
+    font-size: 18px;
+}
+
+/* Estils de la Taula */
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th, .table td {
+    padding: 10px;
+    text-align: left;
+}
+
+.table th {
+    background-color: #007bff; 
+    color: white;
+}
+
+.table tbody tr:nth-child(odd) {
+    background-color: #f9f9f9; 
+}
+
+.text-right {
+    text-align: right; 
+}
+
+.btn-sm {
+    padding: 8px 11px;
+    margin: 0 5px; 
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transición suave al hacer hover */
+}
+
+/* Botón de Editar (lápiz) */
+.btn-warning:hover {
+    background-color: #e0a800;
+    border-color: #d39e00;
+    color: white;
+}
+
+/* Botón de Eliminar (basura) */
+.btn-danger:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+    color: white;
+}
+
+.btn-sm i {
+    font-size: 14px;
+}
+
+
+/* Estils dels botons d'acció */
+.btn-warning {
+    background-color: #ffa726;
+}
+
+.btn-danger {
+    background-color: #e53935;
+}

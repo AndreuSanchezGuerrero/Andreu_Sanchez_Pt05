@@ -1,0 +1,30 @@
+/* Estil dels missatges d'error */
+.error {
+    color: #cc0014; 
+    text-align: left;
+}
+
+/* Estil del missatge d'alerta */
+.alert {
+    margin:auto; 
+    width: 300px;
+    text-align: center; 
+    padding: 15px; 
+    background-color: #4CAF50; 
+    color: white; 
+    opacity: 0; 
+    transition: opacity 1s ease-in-out;
+    border-radius: 5px; 
+    display: none; 
+}
+
+/* Estil del missatge d'alerta d'error */
+.alert.error {
+    background-color: #f44336;
+}
+
+/* Mostrar el missatge d'alerta */
+.alert.show {
+    display: block; 
+    opacity: 1;
+}
