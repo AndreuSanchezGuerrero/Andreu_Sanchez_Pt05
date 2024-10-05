@@ -1,19 +1,27 @@
 <?php
+// Andreu Sánchez Guerrero
 // Obtenir el nombre d'articles per pàgina, si no s'ha especificat, mostrar 5 per defecte
 $articlesPerPage = CustomSessionHandler::get('articlesPerPage') ? CustomSessionHandler::get('articlesPerPage') : 5;
-$totalArticles = $controller->countArticles(); // Obtenir el número total d'articles
-$totalPages = ceil($totalArticles / $articlesPerPage); // Calcular el número total de páginas. Arrodonir cap amunt amb ceil
+$totalArticles = $controller->countArticles(); 
+$totalPages = ceil($totalArticles / $articlesPerPage);
 
 // Determinar la pàgina actual
-$page = isset($_GET['page']) && filter_var($_GET['page'], FILTER_VALIDATE_INT) ? $_GET['page'] : 1; // Si no s'especifica la pàgina, mostrar la primera. Filtrem per a que sigui un número enter vàlid
-// Si la pàgina es més petita que 1 o es més gran que el màxim de pàgines, tornem a la primera.
-if ($page < 1 || $page > $totalPages) header("Location: " . $_SERVER['PHP_SELF'] . "?page=1");
+$page = isset($_GET['page']) ? $_GET['page'] : 1; // Agafar la pàgina de la URL o establir per defecte 1
 
-// Calcular l'offset per a obtenir els articles de la pàgina actual, per exemple, si estem a la pàgina 3, l'offset serà 10, i agafarem els articles de la posició 10 fins a articlesPerPage
+// Verificar si el valor de la pàgina és un número enter vàlid i dins del rang de pàgines
+if (!filter_var($page, FILTER_VALIDATE_INT) || $page < 1 || $page > $totalPages) {
+    // Si no és un enter vàlid o està fora de rang, redirigir a la pàgina 1
+    header("Location: " . $_SERVER['PHP_SELF'] . "?page=1");
+    exit();
+}
+
+// Calcular l'offset per a obtenir els articles de la pàgina actual
 $offset = ($page - 1) * $articlesPerPage;
+
 // Obtener los artículos correspondientes a la página actual
 $articles = $controller->getArticlesByPage($articlesPerPage, $offset);
 ?>
+
 
 <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST" class="form-pagination">
     <label for="articlesPerPage">Mostrar</label>
@@ -25,10 +33,10 @@ $articles = $controller->getArticlesByPage($articlesPerPage, $offset);
     </select>
     <label for="articlesPerPage">articles per pàgina</label>
 
-    <!-- Campo oculto para identificar que este es el formulario de paginación -->
+    <!-- Camp ocult per identificar el fromulari de paginació -->
     <input type="hidden" name="form_type" value="pagination">
 
-    <!-- Campo oculto para mantener la página actual -->
+    <!-- Campo ocult per mantenirse a la pàgina actual, la pasarem per post i en el header afegim el seu valor -->
     <input type="hidden" name="page" value="<?php echo isset($page) ? $page : 1; ?>">
 </form>
 
@@ -40,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['form_type']) && $_POST['form_type'] == 'pagination') {
         // Si se envió el formulario de paginación
         CustomSessionHandler::set('articlesPerPage', (int)$_POST['articlesPerPage']);
-        // Redirigir a la página actual
+        // Redirigir a la página actual amb el valor del input "page"
         header("Location: " . $_SERVER['PHP_SELF'] . "?page=" . $_POST['page']);
         exit();
     } elseif (isset($_POST['form_type']) && $_POST['form_type'] == 'article_form') {

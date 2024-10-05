@@ -1,3 +1,4 @@
+<!-- Andreu Sánchez Guerrero -->
 <div class="col-6">
     <h2 id="margin">Llista d'Articles</h2>
     <?php if (!empty($articles)): ?>

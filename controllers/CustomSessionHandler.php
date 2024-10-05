@@ -1,5 +1,5 @@
 <?php
-
+// Andreu Sánchez Guerrero
 // Verificar si hi ha una sessió activa, si no, la creem
 if (session_status() == PHP_SESSION_NONE) {
     session_start();

@@ -1,19 +1,20 @@
+<!-- Andreu Sánchez Guerrero -->
 <div class="pagination">
     <?php if ($totalPages > 1): ?>
         <ul>
-            <!-- Enlace para la página anterior -->
+            <!-- Pàgina anterior -->
             <?php if ($page > 1): ?>
                 <li><a href="?page=<?php echo $page - 1; ?>">Anterior</a></li>
             <?php endif; ?>
 
-            <!-- Enlaces de las páginas -->
+            <!-- Número de pàgines -->
             <?php for ($i = 1; $i <= $totalPages; $i++): ?>
                 <li><a href="?page=<?php echo $i; ?>" class="<?php if ($i == $page) echo 'active'; ?>"><?php echo $i; ?></a></li>
             <?php endfor; ?>
 
-            <!-- Enlace para la página siguiente -->
+            <!-- Pàgina següent -->
             <?php if ($page < $totalPages): ?>
-                <li><a href="?page=<?php echo $page + 1; ?>">Siguiente</a></li>
+                <li><a href="?page=<?php echo $page + 1; ?>">Següent</a></li>
             <?php endif; ?>
         </ul>
     <?php endif; ?>

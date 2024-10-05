@@ -1,4 +1,5 @@
 <?php
+// Andreu Sánchez Guerrero
 // Incloure el controlador de la sessió
 include_once 'CustomSessionHandler.php';
 require_once 'models/Article.php';
@@ -28,10 +29,10 @@ if (!empty($errors)) {
         // Crear una instància del model Article
         $articleModel = new Article($pdo);
 
-        // Comprovar si estem en mode edició
+        // Si estem en mode edició actualitzar l'article amb l'ID
         if (isset($_GET['action']) && $_GET['action'] == 'update' && isset($_GET['id'])) {
             $id = $_GET['id'];
-            $articleModel->update($id, $title, $body);  // Actualitzar l'article amb l'ID
+            $articleModel->update($id, $title, $body);
             CustomSessionHandler::set('operation', 'update');
         
         }  else {

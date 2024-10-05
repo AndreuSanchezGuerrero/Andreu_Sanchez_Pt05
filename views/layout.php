@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- Andreu Sánchez Guerrero -->
 <html lang="ca">
 <head>
     <meta charset="UTF-8">
@@ -15,30 +16,18 @@
 </head>
 <body>  
     <main>
-        <?php
-        // Si en algun moment s'ha enviat el formulari, comprovar si hi ha errors o si s'ha enviat correctament
-        if (CustomSessionHandler::get('success') === true) {
-            $success = true;
-            CustomSessionHandler::remove('success');
-        } elseif (CustomSessionHandler::get('success') === false) {
-            $errors = CustomSessionHandler::get('errors');
-            CustomSessionHandler::remove('success');
-            CustomSessionHandler::remove('errors');
-        }
-        ?>
-
         <!-- Contenidor d'alertes -->
         <?php include 'components/alert/alert.php'; ?>
 
         <div class="container">
 
-            <!-- Incluir componente de formulario -->
+            <!-- Formulari -->
             <?php include 'components/form/form.php'; ?>
 
-            <!-- Incluir componente de paginación -->
+            <!-- Paginació -->
             <?php include 'components/pagination/pagination-option.php'; ?>
 
-            <!-- Columna dels Articles -->
+            <!-- Articles -->
             <?php include 'components/articles/articles.php'; ?>
         </div>
     </main>

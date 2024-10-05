@@ -1,3 +1,4 @@
+// Andreu Sánchez Guerrero
 function showAlert(mensaje, tipo = 'success') {
 
     const alert = document.getElementById('alert');

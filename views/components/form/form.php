@@ -1,28 +1,4 @@
 <?php
-if (isset($_GET['action']) && $_GET['action'] == 'edit' && isset($_GET['id'])) {
-    $articleId = $_GET['id'];
-    
-    // Verificar si el ID és un número enter vàlid
-    if (!filter_var($articleId, FILTER_VALIDATE_INT)) {
-        CustomSessionHandler::set('errorsUrl', "L'ID especificat no és vàlid.");
-        header("Location: index.php");
-        exit();
-    } else {
-        $articleToEdit = $controller->getArticleById($articleId);
-        
-        // Si l'article no existeix
-        if (!$articleToEdit) {
-            CustomSessionHandler::set('errorsUrl', "L'article amb l'ID especificat no existeix.");
-            header("Location: index.php");
-            exit();
-        } else {
-            $isEdit = true;
-        }
-    }
-}
-?>
-
-<?php
 // Comprovar si és una acció de eliminació
 if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id'])) {
     $id = $_GET['id'];

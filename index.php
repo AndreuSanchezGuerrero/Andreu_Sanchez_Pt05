@@ -15,7 +15,7 @@ $isEdit = false;
 // Variable per emmagatzemar les dades de l'article a editar
 $articleToEdit = null;
 
-// Crear una instància del controlador d'articles i obtenir tots els articles
+// Crear una instància del controlador d'articles i obtenir tots els articles abans de carregar la vista
 $controller = new ArticleController($pdo);
 $articles = $controller->getArticles(); 
 

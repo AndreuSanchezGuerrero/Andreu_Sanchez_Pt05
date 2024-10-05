@@ -1,3 +1,4 @@
+/* Andreu Sánchez Guerrero */
 .pagination {
     display: flex;
     justify-content: center; 
@@ -41,7 +42,6 @@
     cursor: not-allowed;
 }
 
-/* Estilo del formulario de selección de artículos por página */
 .form-pagination {
     text-align: center;
     margin-bottom: 20px;
@@ -52,7 +52,7 @@
 .form-pagination label {
     margin-right: 10px;
     font-weight: bold;
-    color: #007bff;  /* Color principal */
+    color: #007bff; 
 }
 
 .form-pagination select {
@@ -79,7 +79,6 @@
     padding: 8px;
 }
 
-/* Ajustar el texto del select */
 .form-pagination option {
     background: white;
     color: #333;

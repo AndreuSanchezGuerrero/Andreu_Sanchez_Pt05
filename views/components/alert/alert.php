@@ -1,4 +1,35 @@
 <?php
+$errorsUrl = CustomSessionHandler::get('errorsUrl');
+CustomSessionHandler::remove('errorsUrl');
+?>
+
+<?php
+        // Andreu Sánchez Guerrero
+        if (isset($_GET['action']) && $_GET['action'] == 'edit' && isset($_GET['id'])) {
+            $articleId = $_GET['id'];
+            
+            // Verificar si el ID és un número enter vàlid
+            if (!filter_var($articleId, FILTER_VALIDATE_INT)) {
+                CustomSessionHandler::set('errorsUrl', "L'ID especificat no és vàlid.");
+                header("Location: index.php");
+                exit();
+            } else {
+                $articleToEdit = $controller->getArticleById($articleId);
+                
+                // Si l'article no existeix
+                if (!$articleToEdit) {
+                    CustomSessionHandler::set('errorsUrl', "L'article amb l'ID especificat no existeix.");
+                    header("Location: index.php");
+                    exit();
+                } else {
+                    $isEdit = true;
+                }
+            }
+        }
+        ?>
+
+<?php
+// Andreu Sánchez Guerrero
 // Si en algun moment s'ha enviat el formulari, comprovar si hi ha errors o si s'ha enviat correctament
 if (CustomSessionHandler::get('success') === true) {
     $success = true;
@@ -13,7 +44,7 @@ if (CustomSessionHandler::get('success') === true) {
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         // Mostrar errors relacionats amb la URL (errorUrl)
-        let errorsUrl = "<?php echo $errorsUrl; ?>";
+        let errorsUrl = "<?php echo addslashes($errorsUrl); ?>"
         <?php if (!empty($errorsUrl)): ?> 
             showAlert(errorsUrl, 'error'); 
         <?php endif; ?>
