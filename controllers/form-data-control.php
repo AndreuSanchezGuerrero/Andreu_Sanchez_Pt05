@@ -1,56 +1,62 @@
 <?php
 // Andreu Sánchez Guerrero
-// Incloure el controlador de la sessió
+// Incluir el manejador de sesiones y el modelo de libros
 include_once 'CustomSessionHandler.php';
-require_once 'models/Article.php';
+require_once 'models/Book.php';  // Cambiado a Book
 
-// Validar les dades
-if (empty($_POST["title"])) {
-    $errors[] = "El camp 'Títol' està buit.";
+// Validar los datos
+if (empty($_POST["name"])) {
+    $errors[] = "El camp 'Nom del Llibre' està buit.";  // Cambiado a libro
 } else {
-    $title = htmlspecialchars(trim($_POST["title"]));
-    if (strlen($title) > 100) {
-        $errors[] = "El camp 'Títol' no pot tenir més de 100 caràcters.";
+    $name = htmlspecialchars(trim($_POST["name"]));  // Cambiado a name
+    if (strlen($name) > 100) {
+        $errors[] = "El camp 'Nom del Llibre' no pot tenir més de 100 caràcters.";  // Cambiado a libro
     }
 }
 
-if (empty($_POST["body"])) {
-    $errors[] = "El camp 'Cos' està buit.";
+if (empty($_POST["author"])) {
+    $errors[] = "El camp 'Nom de l'Autor' està buit.";  // Cambiado a autor
 } else {
-    $body = htmlspecialchars(trim($_POST["body"]));
+    $author = htmlspecialchars(trim($_POST["author"]));  // Cambiado a author
 }
 
-// Si hi ha errors, emmagatzemem els errors a la sessió
+if (empty($_POST["isbn"])) {
+    $errors[] = "El camp 'ISBN' està buit.";  // Validación para ISBN
+} else {
+    $isbn = htmlspecialchars(trim($_POST["isbn"]));  // Cambiado a isbn
+}
+
+// Si hay errores, almacenamos los errores en la sesión
 if (!empty($errors)) {
     CustomSessionHandler::set('success', false);
     CustomSessionHandler::set('errors', $errors);
 } else {
     try {
-        // Crear una instància del model Article
-        $articleModel = new Article($pdo);
+        // Crear una instancia del modelo de libros
+        $bookModel = new Book($pdo);  // Cambiado a Book
 
-        // Si estem en mode edició actualitzar l'article amb l'ID
+        // Si estamos en modo edición, actualizar el libro con el ID
         if (isset($_GET['action']) && $_GET['action'] == 'update' && isset($_GET['id'])) {
             $id = $_GET['id'];
-            $articleModel->update($id, $title, $body);
+            $bookModel->updateBook($id, $isbn, $name, $author);  // Cambiado a libro
             CustomSessionHandler::set('operation', 'update');
         
-        }  else {
-            // Mode creació -> inserir article
-            $articleModel->create($title, $body);
+        } else {
+            // Modo creación -> insertar libro
+            $bookModel->createBook($isbn, $name, $author);  // Cambiado a libro
             CustomSessionHandler::set('operation', 'create');
         }
-        // Si l'operació és correcta, emmagatzemem success a la sessió
+        // Si la operación es exitosa, almacenamos success en la sesión
         CustomSessionHandler::set('success', true);
         CustomSessionHandler::remove('errors');
     } catch (PDOException $e) {
-        // Si hi ha un error a la base de dades, emmagatzemem l'error
-        $errors[] = "Error en inserir l'article: " . $e->getMessage();
+        // Si hay un error en la base de datos, lo almacenamos
+        $errors[] = "Error en inserir el llibre: " . $e->getMessage();  // Cambiado a libro
         CustomSessionHandler::set('success', false);
         CustomSessionHandler::set('errors', $errors);
     }
 }
-// Redirigim a la pàgina principal per mostrar errors o missatges de success
+// Redirigir a la página principal
 header("Location: index.php");
 exit();
 ?>
