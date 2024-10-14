@@ -1,23 +1,33 @@
 <?php
-// Comprovar si és una acció de eliminació
+if (CustomSessionHandler::get('success') === true) {
+    $success = true;
+    CustomSessionHandler::remove('success');
+} elseif (CustomSessionHandler::get('success') === false) {
+    $errors = CustomSessionHandler::get('errors');
+    CustomSessionHandler::remove('success');
+    CustomSessionHandler::remove('errors');
+}
+
+
+// Comprobar si es una acción de eliminación
 if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id'])) {
     $id = $_GET['id'];
 
-    // Verificar si el ID és un número enter vàlid
+    // Verificar si el ID es un número entero válido
     if (!filter_var($id, FILTER_VALIDATE_INT)) {
         CustomSessionHandler::set('errorsUrl', "L'ID especificat no és vàlid.");
         header("Location: index.php");
         exit();
     } else {
-        $articleToDelete = $controller->getArticleById($id);
+        $bookToDelete = $bookController->getBookById($id);
 
-        if (!$articleToDelete) {
-            CustomSessionHandler::set('errorsUrl', "L'article amb l'ID especificat no existeix.");
+        if (!$bookToDelete) {
+            CustomSessionHandler::set('errorsUrl', "El llibre amb l'ID especificat no existeix.");
             header("Location: index.php");
             exit();
         } else {
-            // Si el article existeix, procedir amb l'eliminació
-            $controller->deleteArticle($id);
+            // Eliminar el libro
+            $bookController->deleteBook($id);
             CustomSessionHandler::set('operation', 'delete');
             CustomSessionHandler::set('success', true);
             header("Location: index.php");
@@ -26,32 +36,68 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id']))
     }
 }
 
+// Comprobar si es una acción de edición
+if (isset($_GET['action']) && $_GET['action'] == 'edit' && isset($_GET['id'])) {
+    $bookId = $_GET['id'];
+
+    // Verificar si el ID es un número entero válido
+    if (!filter_var($bookId, FILTER_VALIDATE_INT)) {
+        CustomSessionHandler::set('errorsUrl', "L'ID especificat no és vàlid.");
+        header("Location: index.php");
+        exit();
+    } else {
+        $bookToEdit = $bookController->getBookById($bookId);
+
+        if (!$bookToEdit) {
+            CustomSessionHandler::set('errorsUrl', "El llibre amb l'ID especificat no existeix.");
+            header("Location: index.php");
+            exit();
+        } else {
+            $isEdit = true;
+        }
+    }
+}
 ?>
+
+
 
 <div>
     <!-- Formulari de creació/edició, detecta automàticament si estem en edició o creació -->
-    <form action="<?php echo $isEdit ? 'index.php?action=update&id=' . $articleToEdit['id'] : htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST" class="form-article">
+    <form action="<?php echo $isEdit ? 'index.php?action=update&id=' . $bookToEdit['id'] : htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST" class="form-book">
         <!-- Títol del formulari amb un ternari, si estem en edició editem i si no creem-->
-        <h2><?php echo $isEdit ? 'Editar Article' : 'Crear Nou Article'; ?></h2>
+        <h2><?php echo $isEdit ? 'Editar Llibre' : 'Afegir Nou Llibre'; ?></h2>
 
         <div class="form-group">
-            <label for="title">Títol:</label>
+            <label for="isbn">ISBN:</label>
             <input  type="text" 
-                    id="title" 
-                    name="title" 
+                    id="isbn" 
+                    name="isbn" 
                     class="form-control" 
                     required 
-                    value="<?php echo $isEdit ? htmlspecialchars($articleToEdit['title']) : ''; ?>"> <!-- Si estem en edició, carregar el títol de l'article -->
+                    value="<?php echo $isEdit ? htmlspecialchars($bookToEdit['isbn']) : ''; ?>"> <!-- Si estem en edició, carregar el ISBN del llibre -->
         </div>
 
         <div class="form-group">
-            <label for="body">Cos:</label>
-            <textarea   id="body" 
-                        name="body" 
-                        class="form-control" 
-                        required><?php echo $isEdit ? htmlspecialchars($articleToEdit['body']) : ''; ?></textarea> <!-- Si estem en edició, carregar el cos de l'article -->
+            <label for="name">Nom del Llibre:</label>
+            <input  type="text" 
+                    id="name" 
+                    name="name" 
+                    class="form-control" 
+                    required 
+                    value="<?php echo $isEdit ? htmlspecialchars($bookToEdit['name']) : ''; ?>"> <!-- Si estem en edició, carregar el nom del llibre -->
         </div>
-        <button type="submit" class="btn btn-primary"><?php echo $isEdit ? 'Actualitzar Article' : 'Afegir Article'; ?></button>
+
+        <div class="form-group">
+            <label for="author">Autor del Llibre:</label>
+            <input  type="text" 
+                    id="author" 
+                    name="author" 
+                    class="form-control" 
+                    required 
+                    value="<?php echo $isEdit ? htmlspecialchars($bookToEdit['author']) : ''; ?>"> <!-- Si estem en edició, carregar l'autor del llibre -->
+        </div>
+
+        <button type="submit" class="btn btn-primary"><?php echo $isEdit ? 'Actualitzar Llibre' : 'Afegir Llibre'; ?></button>
 
         <!-- Comprovar si hi han errors i mostrar-los en cas de que hi hagin -->
         <?php if (!empty($errors)): ?> 
@@ -63,6 +109,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id']))
         <?php endif; ?>
 
         <!-- Camp ocult per identificar que es el formulari de creació/edició al hora de fer el submit -->
-        <input type="hidden" name="form_type" value="article_form">
+        <input type="hidden" name="form_type" value="book_form">
     </form>
 </div>
+

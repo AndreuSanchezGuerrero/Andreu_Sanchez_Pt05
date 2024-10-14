@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="views/layout.css">
     <link rel="stylesheet" href="views/components/form/from.css">
     <link rel="stylesheet" href="views/components/pagination/pagination.css">
-    <link rel="stylesheet" href="views/components/articles/articles.css">
+    <link rel="stylesheet" href="views/components/books/books.css">
     <link rel="stylesheet" href="views/components/alert/alert.css">
     <link rel="stylesheet" href="views/components/footer/footer.css">
     <script defer src="views/components/alert/alert.js"></script>
@@ -28,7 +28,7 @@
             <?php include 'components/pagination/pagination-option.php'; ?>
 
             <!-- Articles -->
-            <?php include 'components/articles/articles.php'; ?>
+            <?php include 'components/books/books.php'; ?>
         </div>
     </main>
     <footer>

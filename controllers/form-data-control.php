@@ -2,7 +2,7 @@
 // Andreu Sánchez Guerrero
 // Incluir el manejador de sesiones y el modelo de libros
 include_once 'CustomSessionHandler.php';
-require_once 'models/Book.php';  // Cambiado a Book
+require_once 'models/Books.php';  // Cambiado a Book
 
 // Validar los datos
 if (empty($_POST["name"])) {
