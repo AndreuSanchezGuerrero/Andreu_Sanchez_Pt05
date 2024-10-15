@@ -1,24 +1,23 @@
 <!-- Andreu Sánchez Guerrero -->
 <div class="col-6">
-    <h2 id="margin">Llista de Llibres</h2>  <!-- Cambiado a Llibres -->
+    <h2 id="margin">List of books</h2>
     <?php if (!empty($books)): ?>
         <table class="table">
             <thead>
                 <tr>
                     <th>ISBN</th>
-                    <th>Nom del Llibre</th>
-                    <th>Autor</th> 
+                    <th>Book name</th>
+                    <th>Author</th> 
                     <th></th>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($books as $book): ?>  <!-- Cambiado a books -->
+                <?php foreach ($books as $book): ?>
                     <tr>
-                        <td><?= htmlspecialchars($book['isbn']); ?></td>  <!-- Cambiado a book -->
-                        <td><?= htmlspecialchars($book['name']); ?></td>  <!-- Cambiado a name -->
-                        <td><?= htmlspecialchars($book['author']); ?></td>  <!-- Cambiado a author -->
-                        <td class="text-right">
-                            <!-- Enlaces para editar y eliminar libros -->
+                        <td><?= htmlspecialchars($book['isbn']); ?></td>  
+                        <td><?= htmlspecialchars($book['name']); ?></td>  
+                        <td><?= htmlspecialchars($book['author']); ?></td>  
+                        <td>
                             <a href="index.php?action=edit&id=<?= $book['id']; ?>" class="btn btn-warning btn-sm">
                                 <i class="fas fa-pencil-alt"></i>
                             </a>
@@ -31,9 +30,8 @@
             </tbody>
         </table>
     <?php else: ?>
-        <p>No hi ha llibres disponibles.</p>  <!-- Cambiado a llibres -->
+        <p>There are no books available.</p>
     <?php endif; ?>
 
-    <!-- Incluir componente de paginación -->
     <?php include __DIR__ . '/../pagination/pagination.php'; ?>
 </div>
