@@ -4,7 +4,7 @@
         <ul>
             <!-- Pàgina anterior -->
             <?php if ($page > 1): ?>
-                <li><a href="?page=<?php echo $page - 1; ?>">Anterior</a></li>
+                <li><a href="?page=<?php echo $page - 1; ?>">Previous</a></li>
             <?php endif; ?>
 
             <!-- Número de pàgines -->
@@ -14,7 +14,7 @@
 
             <!-- Pàgina següent -->
             <?php if ($page < $totalPages): ?>
-                <li><a href="?page=<?php echo $page + 1; ?>">Següent</a></li>
+                <li><a href="?page=<?php echo $page + 1; ?>">Next</a></li>
             <?php endif; ?>
         </ul>
     <?php endif; ?>

@@ -25,14 +25,14 @@ $books = $bookController->getBooksByPage($booksPerPage, $offset); // Cambiado a 
 
 
 <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST" class="form-pagination">
-    <label for="booksPerPage">Mostrar</label>
+    <label for="booksPerPage">Show</label>
     <select name="booksPerPage" id="booksPerPage" onchange="this.form.submit()">
         <option value="5" <?php if ($booksPerPage == 5) echo 'selected'; ?>>5</option>
         <option value="10" <?php if ($booksPerPage == 10) echo 'selected'; ?>>10</option>
         <option value="20" <?php if ($booksPerPage == 20) echo 'selected'; ?>>20</option>
         <option value="50" <?php if ($booksPerPage == 50) echo 'selected'; ?>>50</option>
     </select>
-    <label for="booksPerPage">libros por página</label>
+    <label for="booksPerPage">books per page</label>
 
     <!-- Campo oculto para identificar el formulario de paginación -->
     <input type="hidden" name="form_type" value="pagination">
