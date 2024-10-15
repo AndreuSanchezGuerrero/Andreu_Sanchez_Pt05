@@ -27,11 +27,5 @@ class CustomSessionHandler
             unset($_SESSION[$key]);
         }
     }
-
-    // Per netejar la sessió
-    public static function clear()
-    {
-        session_destroy();
-    }
 }
 ?>
