@@ -2,7 +2,7 @@
 // Andreu Sánchez Guerrero
 
 // Fitxer de variables d'entorn
-require_once 'config/env.php';
+require_once __DIR__ . '/../env.php'; 
 
 $host = DB_VAR['DB_HOST'];
 $dbname = DB_VAR['DB_NAME'];
