@@ -10,9 +10,9 @@ class BookController {
     }
 
     // Create a new book
-    public function createBook($isbn, $name, $author) {
+    public function createBook($isbn, $name, $author, $userId) {
         try {
-            return $this->bookModel->createBook($isbn, $name, $author);
+            return $this->bookModel->createBook($isbn, $name, $author, $userId);
         } catch (PDOException $e) {
             if ($e->errorInfo[1] == 1062) {  // Duplicate entry error code
                 throw new Exception("The ISBN already exists. Please enter a different one.");
@@ -23,8 +23,8 @@ class BookController {
     }
 
     // Get all books
-    public function getBooks() {
-        return $this->bookModel->getBooks();
+    public function getBooks($userId = null) {
+        return $this->bookModel->getBooks($userId);
     }
 
     // Get a book by ID
@@ -48,10 +48,6 @@ class BookController {
     // Delete a book
     public function deleteBook($id) {
         return $this->bookModel->deleteBook($id);
-    }
-
-    public function countBooks() {
-        return $this->bookModel->countBooks();
     }
 
     public function getBooksByPage($limit, $offset) {
