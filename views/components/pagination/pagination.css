@@ -2,7 +2,6 @@
 .pagination {
     display: flex;
     justify-content: center; 
-    margin-top: 20px;
 }
 
 .pagination ul {
@@ -44,15 +43,8 @@
 
 .form-pagination {
     text-align: center;
-    margin-bottom: 20px;
     font-size: 16px;
     font-family: Arial, sans-serif;
-}
-
-.form-pagination label {
-    margin-right: 10px;
-    font-weight: bold;
-    color: #007bff; 
 }
 
 .form-pagination select {

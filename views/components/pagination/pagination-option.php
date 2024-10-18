@@ -2,7 +2,7 @@
 // Andreu Sánchez Guerrero
 // Obtener el número de libros por página, si no se ha especificado, mostrar 5 por defecto
 $booksPerPage = CustomSessionHandler::get('booksPerPage') ? CustomSessionHandler::get('booksPerPage') : 5;
-$totalBooks = $bookController->countBooks(); // Cambiado a `countBooks()`
+$totalBooks = count($booksToUse); // Contar los libros que se están usando
 $totalPages = $totalBooks > 0 ? ceil($totalBooks / $booksPerPage) : 1;  // Siempre debe haber al menos 1 página 
 
 // Determinar la página actual
@@ -19,20 +19,17 @@ if (!filter_var($page, FILTER_VALIDATE_INT) || $page < 1 || $page > $totalPages)
 $offset = ($page - 1) * $booksPerPage;
 
 // Obtener los libros correspondientes a la página actual
-$books = $bookController->getBooksByPage($booksPerPage, $offset); // Cambiado a `getBooksByPage()`
+$booksToShow = $bookController->getBooksByPage($booksPerPage, $offset); // Cambiado a `getBooksByPage()`
+
 ?>
 
-
-
 <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST" class="form-pagination">
-    <label for="booksPerPage">Show</label>
     <select name="booksPerPage" id="booksPerPage" onchange="this.form.submit()">
         <option value="5" <?php if ($booksPerPage == 5) echo 'selected'; ?>>5</option>
         <option value="10" <?php if ($booksPerPage == 10) echo 'selected'; ?>>10</option>
         <option value="20" <?php if ($booksPerPage == 20) echo 'selected'; ?>>20</option>
         <option value="50" <?php if ($booksPerPage == 50) echo 'selected'; ?>>50</option>
     </select>
-    <label for="booksPerPage">books per page</label>
 
     <!-- Campo oculto para identificar el formulario de paginación -->
     <input type="hidden" name="form_type" value="pagination">

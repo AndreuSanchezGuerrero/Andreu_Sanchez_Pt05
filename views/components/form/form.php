@@ -1,8 +1,8 @@
 <?php
-if (CustomSessionHandler::get('success') === true) {
+if (CustomSessionHandler::get('success')) {
     $success = true;
     CustomSessionHandler::remove('success');
-} elseif (CustomSessionHandler::get('success') === false) {
+} elseif (!CustomSessionHandler::get('success')) {
     $errors = CustomSessionHandler::get('errors');
     CustomSessionHandler::remove('success');
     CustomSessionHandler::remove('errors');
@@ -65,7 +65,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'edit' && isset($_GET['id'])) {
     <!-- Formulari de creació/edició, detecta automàticament si estem en edició o creació -->
     <form action="<?php echo $isEdit ? 'index.php?action=update&id=' . $bookToEdit['id'] : htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST" class="form-book">
         <!-- Títol del formulari amb un ternari, si estem en edició editem i si no creem-->
-        <h2><?php echo $isEdit ? 'Editar Llibre' : 'Afegir Nou Llibre'; ?></h2>
+        <h2><?php echo $isEdit ? 'Edit book' : 'Add new book'; ?></h2>
 
         <div class="form-group">
             <label for="isbn">ISBN:</label>
@@ -78,7 +78,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'edit' && isset($_GET['id'])) {
         </div>
 
         <div class="form-group">
-            <label for="name">Nom del Llibre:</label>
+            <label for="name">Book Name:</label>
             <input  type="text" 
                     id="name" 
                     name="name" 
@@ -88,7 +88,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'edit' && isset($_GET['id'])) {
         </div>
 
         <div class="form-group">
-            <label for="author">Autor del Llibre:</label>
+            <label for="author">Name of the author:</label>
             <input  type="text" 
                     id="author" 
                     name="author" 
@@ -97,7 +97,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'edit' && isset($_GET['id'])) {
                     value="<?php echo $isEdit ? htmlspecialchars($bookToEdit['author']) : ''; ?>"> <!-- Si estem en edició, carregar l'autor del llibre -->
         </div>
 
-        <button type="submit" class="btn btn-primary"><?php echo $isEdit ? 'Actualitzar Llibre' : 'Afegir Llibre'; ?></button>
+        <button type="submit" class="btn btn-primary"><?php echo $isEdit ? 'Update book' : 'Add book'; ?></button>
 
         <!-- Comprovar si hi han errors i mostrar-los en cas de que hi hagin -->
         <?php if (!empty($errors)): ?> 
