@@ -3,6 +3,14 @@
 $errorsUrl = CustomSessionHandler::get('errorsUrl');
 CustomSessionHandler::remove('errorsUrl');
 
+$loginError = CustomSessionHandler::get('login_error');
+$loginSuccess = CustomSessionHandler::get('login_success');
+CustomSessionHandler::remove('login_error');
+CustomSessionHandler::remove('login_success');
+
+$logoutMessage = CustomSessionHandler::get('logout_message');
+CustomSessionHandler::remove('logout_message');
+
 // Obtener el estado de éxito o errores generales del formulario
 $success = CustomSessionHandler::get('success');
 $errors = CustomSessionHandler::get('errors');
@@ -18,10 +26,20 @@ CustomSessionHandler::remove('operation');
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    // Mostrar errores relacionados con la URL (errorsUrl)
-    let errorsUrl = "<?php echo addslashes($errorsUrl); ?>";
     <?php if (!empty($errorsUrl)): ?> 
         showAlert(errorsUrl, 'error'); 
+    <?php endif; ?>
+
+    <?php if (!empty($loginError)): ?>
+        showAlert(loginError, 'error');
+    <?php endif; ?>
+
+    <?php if (!empty($loginSuccess) && $loginSuccess === true): ?>
+        showAlert('Inicio de sesión exitoso', 'success');
+    <?php endif; ?>
+
+    <?php if (!empty($logoutMessage)): ?>
+        showAlert('Has cerrado sesión correctamente.', 'success');
     <?php endif; ?>
 
     // Obtenemos la operación de la sesión: puede ser 'create', 'update', o 'delete'
