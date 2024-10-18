@@ -1,6 +1,6 @@
 <?php
 // Andreu Sánchez Guerrero
-
+session_start();
 require_once 'config/database/connection.php'; 
 require_once 'controllers/CustomSessionHandler.php';
 require_once 'controllers/BookController.php';
@@ -20,8 +20,13 @@ $bookToEdit = null;
 $bookController = new BookController($pdo);
 
 // Ejemplo: Obtener todos los libros
+$userId = CustomSessionHandler::get('user_id') ?? null; 
 $books = $bookController->getBooks();
+$userBooks = $bookController->getBooks($userId);
+$booksToUse = $userId ? $userBooks : $books;
 
 // Incloure la vista principal
 require_once 'views/layout.php'; 
 ?>
+
+

@@ -1,30 +1,46 @@
 <!-- Andreu Sánchez Guerrero -->
+
 <div class="col-6">
-    <h2 id="margin">List of books</h2>
-    <?php if (!empty($books)): ?>
+    <div class="header-section">
+        <?php if ($userId): ?>
+            <h2>Your books</h2>
+        <?php else: ?>
+            <h2>Public books</h2>
+        <?php endif; ?>
+        <?php include __DIR__ . '/../pagination/pagination-option.php'; ?>
+        <?php include __DIR__ . '/../pagination/pagination.php'; ?>
+    </div>
+
+    <?php if (!empty($booksToUse)): ?>
         <table class="table">
             <thead>
                 <tr>
                     <th>ISBN</th>
                     <th>Book name</th>
                     <th>Author</th> 
-                    <th></th>
+                    <?php if ($userId): ?>
+                        <th></th>
+                    <?php endif; ?>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($books as $book): ?>
+                <?php $buks = (CustomSessionHandler::get('user_id')) ? $booksToUse : $booksToShow ?>
+                <?php foreach ($buks as $book): ?>
                     <tr>
                         <td><?= htmlspecialchars($book['isbn']); ?></td>  
                         <td><?= htmlspecialchars($book['name']); ?></td>  
                         <td><?= htmlspecialchars($book['author']); ?></td>  
-                        <td>
+                        <?php if ($userId): ?>
+                        <td class="text-right">
+                            <!-- Mostrar acciones solo si el usuario está logueado -->
                             <a href="index.php?action=edit&id=<?= $book['id']; ?>" class="btn btn-warning btn-sm">
                                 <i class="fas fa-pencil-alt"></i>
                             </a>
-                            <a href="index.php?action=delete&id=<?= $book['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Estàs segur que vols eliminar aquest llibre?');">
+                            <a href="index.php?action=delete&id=<?= $book['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Estás seguro de eliminar este libro?');">
                                 <i class="fas fa-trash"></i>
                             </a>
                         </td>
+                        <?php endif; ?>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
