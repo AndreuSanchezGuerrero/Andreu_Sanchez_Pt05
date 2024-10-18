@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestió d'Articles</title>
     <link rel="stylesheet" href="views/layout.css">
+    <link rel="stylesheet" href="views/components/header/header.css">
+    <link rel="stylesheet" href="views/auth/login/login.css">
     <link rel="stylesheet" href="views/components/form/from.css">
     <link rel="stylesheet" href="views/components/pagination/pagination.css">
     <link rel="stylesheet" href="views/components/books/books.css">
@@ -21,18 +23,19 @@
 
         <div class="container">
 
-            <!-- Formulari -->
-            <?php include 'components/form/form.php'; ?>
+            <!-- Capçalera -->
+            <?php include 'components/header/header.php'; ?>
 
-            <!-- Paginació -->
-            <?php include 'components/pagination/pagination-option.php'; ?>
-
-            <!-- Articles -->
+            <!-- Formulari (Solo si está logueado) -->
+            <?php if ($userId): ?>
+                <?php include 'components/form/form.php'; ?>
+            <?php endif; ?>
+            
+            <!-- Llistat de llibres -->
             <?php include 'components/books/books.php'; ?>
+
+            <?php include 'components/footer/footer.php'; ?>
         </div>
     </main>
-    <footer>
-        <?php include 'components/footer/footer.php'; ?>
-    </footer>
 </body>
 </html>

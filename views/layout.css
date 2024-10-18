@@ -3,25 +3,28 @@
 /* General */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-image: url(img/biblio.avif);
     margin: 0;
     padding: 20px;
+    background-size: cover;  /* Hace que la imagen cubra toda la pantalla */
+    background-position: center;  /* Centra la imagen */
+    background-repeat: no-repeat;  /* Evita que la imagen se repita */
+    background-attachment: fixed;  /* Mantiene la imagen fija al hacer scroll */
 }
 
 h2 {
     color: #007bff;
     font-size: 2em;
-    margin-bottom: 20px;
 }
 
 /* Estructura de contenidors layout */
 .container {
-    max-width: 900px;
+    max-width: 720px;
     margin: 30px auto;
     background: #fff;
     padding: 30px;
     border-radius: 10px;
-    box-shadow: 0 0 15px #007bff;
+    box-shadow: 0 0 15px #000000;
 }
 
 #margin {
