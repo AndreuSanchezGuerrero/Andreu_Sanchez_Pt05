@@ -9,5 +9,7 @@ define('DB_VAR', [
     'DB_PASSWORD' => '',
 ]);
 
+// BASE_PATH define la ruta raíz del proyecto en el servidor
+define('BASE_PATH', dirname(__DIR__) . '/');
+define('BASE_URL', '/Backend/Andreu_Sanchez_Pt04/');
 ?>
-
