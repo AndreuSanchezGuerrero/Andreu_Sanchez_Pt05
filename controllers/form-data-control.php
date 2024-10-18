@@ -4,6 +4,12 @@
 include_once 'CustomSessionHandler.php';
 require_once 'models/Books.php';  // Cambiado a Book
 
+// Obtener el user_id de la sesión
+$userId = CustomSessionHandler::get('user_id');
+
+// Inicializar la variable de errores
+$errors = [];
+
 // Validar los datos
 if (empty($_POST["name"])) {
     $errors[] = "El camp 'Nom del Llibre' està buit.";  // Cambiado a libro
@@ -43,7 +49,7 @@ if (!empty($errors)) {
         
         } else {
             // Modo creación -> insertar libro
-            $bookModel->createBook($isbn, $name, $author);  // Cambiado a libro
+            $bookModel->createBook($isbn, $name, $author, $userId);  // Cambiado a libro
             CustomSessionHandler::set('operation', 'create');
         }
         // Si la operación es exitosa, almacenamos success en la sesión
