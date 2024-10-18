@@ -8,22 +8,30 @@ class Book {
     }
 
     // Create a new book
-    public function createBook($isbn, $name, $author) {
-        $sql = "INSERT INTO books (isbn, name, author) VALUES (:isbn, :name, :author)";
+    public function createBook($isbn, $name, $author, $userId) {
+        $sql = "INSERT INTO books (isbn, name, author, user_id) VALUES (:isbn, :name, :author, :user_id)";
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindParam(':isbn', $isbn);
         $stmt->bindParam(':name', $name);
         $stmt->bindParam(':author', $author);
-
-        return $stmt->execute();
-    }
-
-    // Get all books
-    public function getBooks() {
-        $sql = "SELECT * FROM books";
-        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':user_id', $userId);
         $stmt->execute();
+    }
+    
 
+    public function getBooks($userId) {
+        if (!$userId) {
+            // Si no se pasa userId, obtener todos los libros
+            $sql = "SELECT * FROM books";
+            $stmt = $this->pdo->prepare($sql);
+        } else {
+            // Si se pasa userId, obtener solo los libros de ese usuario
+            $sql = "SELECT * FROM books WHERE user_id = :userId";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+        }
+    
+        $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -56,15 +64,5 @@ class Book {
         $stmt->bindParam(':id', $id);
 
         return $stmt->execute();
-    }
-
-    public function countBooks() {
-        try {
-            $stmt = $this->pdo->prepare("SELECT COUNT(*) FROM books");
-            $stmt->execute();
-            return (int) $stmt->fetchColumn();
-        } catch (PDOException $e) {
-            throw new Exception("Error contando libros: " . $e->getMessage());
-        }
     }
 }
