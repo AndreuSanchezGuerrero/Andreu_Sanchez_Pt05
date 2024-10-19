@@ -1,0 +1,63 @@
+.box {
+    margin: 0;
+    padding: 20px;
+    background-size: cover;  
+    background-position: center;  
+    background-repeat: no-repeat;  
+    background-attachment: fixed;  
+    background-image: url('../../img/biblio.avif');
+}
+
+.register-container {
+    max-width: 400px;
+    margin: 10px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.register-title {
+    margin-bottom: 20px;
+    color: #C44F3B;
+}
+
+.form-register .form-group {
+    margin-bottom: 15px;
+}
+
+.form-register .form-control {
+    width: 100%;
+    padding: 10px 0 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.btn-primary {
+    background-color: #C44F3B;
+    color: white;
+    width: 100%;
+    padding: 10px;
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+.btn-primary:hover {
+    background-color: #582017;
+}
+
+
+
+.login-prompt {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.login-prompt a {
+    color: #C44F3B;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.login-prompt a:hover {
+    text-decoration: underline;
+}
