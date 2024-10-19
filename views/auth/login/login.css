@@ -12,7 +12,7 @@
 /* Contenedor principal */
 .login-container {
     max-width: 620px;
-    margin: 30px auto;
+    margin: 40px auto;
     background: #fff;
     padding: 30px;
     border-radius: 10px;
@@ -20,7 +20,7 @@
 }
 
 .login-title {
-    color: #007bff;
+    color: #C44F3B;
     font-size: 2em;
 }
 
@@ -35,13 +35,13 @@
 }
 
 .btn-primary {
-    background-color: #007bff; 
+    background-color: #C44F3B; 
     margin-top: 20px;
     transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 .btn-primary:hover {
-    background-color: #086bd4; 
+    background-color: #582017; 
 }
 
 .form-book {
@@ -63,4 +63,20 @@
     border-radius: 5px;
     box-sizing: border-box;
     border-color: #cfc9cf;
+}
+
+.register-prompt {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 1.2rem;
+}
+
+.register-prompt a {
+    color: #C44F3B;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.register-prompt a:hover {
+    text-decoration: underline;
 }

@@ -1,12 +1,12 @@
 <?php
 // Andreu Sánchez Guerrero
 // Obtener el número de libros por página, si no se ha especificado, mostrar 5 por defecto
-$booksPerPage = CustomSessionHandler::get('booksPerPage') ?? 5;
+$booksPerPage = CustomSessionHandler::get('booksPerPage') ?? (isset($_COOKIE['booksPerPage']) ? (int)$_COOKIE['booksPerPage'] : 5);
 $totalBooks = count($booksToUse); // Contar los libros que se están usando
 $totalPages = $totalBooks > 0 ? ceil($totalBooks / $booksPerPage) : 1;  // Siempre debe haber al menos 1 página 
 
 // Determinar la página actual
-$page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // Obtener la página de la URL o establecer por defecto en 1
+$page = isset($_GET['page']) ? (int)$_GET['page'] : (isset($_COOKIE['currentPage']) ? (int)$_COOKIE['currentPage'] : 1); 
 
 // Verificar si el valor de la página es un número entero válido y está dentro del rango de páginas
 if (!filter_var($page, FILTER_VALIDATE_INT) || $page < 1 || $page > $totalPages) {
@@ -14,6 +14,9 @@ if (!filter_var($page, FILTER_VALIDATE_INT) || $page < 1 || $page > $totalPages)
     header("Location: " . $_SERVER['PHP_SELF'] . "?page=1");
     exit();
 }
+
+// Guardar la página actual en la cookie si está cambiando la página
+setcookie('currentPage', $page, time() + (86400 * 30), "/"); // Guardar página actual en la cookie, válida por 30 días
 
 // Calcular el offset para obtener los libros de la página actual
 $offset = ($page - 1) * $booksPerPage;
@@ -26,9 +29,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     // Manejo del formulario de paginación
     if (isset($_POST['form_type']) && $_POST['form_type'] == 'pagination') {
-        CustomSessionHandler::set('booksPerPage', (int)$_POST['booksPerPage']);
-        // Redirigir a la página actual con el valor del input "page"
-        header("Location: " . $_SERVER['PHP_SELF'] . "?page=" . $_POST['page']);
+        $booksPerPage = (int)$_POST['booksPerPage'];
+        $page = (int)$_POST['page'];
+
+        // Guardar la cantidad de libros por página en una cookie
+        setcookie('booksPerPage', $booksPerPage, time() + (86400 * 30), "/"); // Cookie válida por 30 días
+
+        // Guardar la página actual en una cookie
+        setcookie('currentPage', $page, time() + (86400 * 30), "/"); // Cookie válida por 30 días
+
+        // Actualizar la sesión y redirigir
+        CustomSessionHandler::set('booksPerPage', $booksPerPage);
+        header("Location: " . $_SERVER['PHP_SELF'] . "?page=" . $page);
         exit();
     }
 
@@ -40,6 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
+<!-- Formulario de paginación -->
 <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST" class="form-pagination">
     <select name="booksPerPage" id="booksPerPage" onchange="this.form.submit()">
         <option value="5" <?php if ($booksPerPage == 5) echo 'selected'; ?>>5</option>

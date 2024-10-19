@@ -37,6 +37,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
             <button type="submit" class="btn btn-primary">Login</button>
         </form>
+        <!-- Añadir un enlace a la página de registro -->
+        <div class="register-prompt">
+            <p>Don't have an account yet? <a href="<?php echo BASE_URL; ?>views/auth/register/register.php">Sign up now!</a></p>
+        </div>
     </div>
 </body>
 </html>
