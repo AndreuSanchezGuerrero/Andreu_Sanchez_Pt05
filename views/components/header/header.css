@@ -1,12 +1,12 @@
 /* Estilos del header */
 header {
-    background-color: #007bff;
+    background-color: #C44F3B;
     padding: 15px 25px;
 }
 
 .icon-house {
-    color: rgb(0, 0, 0);
-    font-size: 24px;
+    color: #582017;
+    font-size: 35px;
 }
 
 .navbar {
@@ -15,8 +15,8 @@ header {
 }
 
 .profile-icon {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     cursor: pointer;
 }
 

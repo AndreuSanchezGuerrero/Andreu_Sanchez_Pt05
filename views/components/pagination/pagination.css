@@ -17,7 +17,7 @@
 .pagination ul li a {
     display: inline-block;
     padding: 10px 15px;
-    background-color: #007bff; 
+    background-color: #C44F3B; 
     color: white; 
     text-decoration: none;
     border-radius: 5px;
@@ -25,11 +25,11 @@
 }
 
 .pagination ul li a:hover {
-    background-color: #0056b3; 
+    background-color: #582017; 
 }
 
 .pagination ul li a.active {
-    background-color: #0056b3; 
+    background-color: #582017; 
     color: white;
     pointer-events: none; 
 }
@@ -50,7 +50,7 @@
 .form-pagination select {
     padding: 8px 10px;
     font-size: 16px;
-    border: 1px solid #007bff;
+    border: 1px solid #C44F3B;
     border-radius: 5px;
     background-color: #f9f9f9;
     color: #333;
@@ -59,7 +59,7 @@
 
 .form-pagination select:focus {
     outline: none;
-    border-color: #0056b3;
+    border-color: #773131;
     background-color: #fff;
 }
 

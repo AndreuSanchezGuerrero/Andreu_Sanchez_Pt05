@@ -24,8 +24,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php $buks = (CustomSessionHandler::get('user_id')) ? $booksToUse : $booksToShow ?>
-                <?php foreach ($buks as $book): ?>
+                <?php foreach ($booksToShow as $book): ?>
                     <tr>
                         <td><?= htmlspecialchars($book['isbn']); ?></td>  
                         <td><?= htmlspecialchars($book['name']); ?></td>  

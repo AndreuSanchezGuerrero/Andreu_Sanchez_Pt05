@@ -1,8 +1,12 @@
 <?php
+
 // Andreu Sánchez Guerrero
 // Incluir el manejador de sesiones y el modelo de libros
 include_once 'CustomSessionHandler.php';
 require_once 'models/Books.php';  // Cambiado a Book
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 // Obtener el user_id de la sesión
 $userId = CustomSessionHandler::get('user_id');

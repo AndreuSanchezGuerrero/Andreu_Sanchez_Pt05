@@ -1,6 +1,10 @@
 <?php
 // Andreu Sánchez Guerrero
 session_start();
+if (headers_sent($file, $line)) {
+    die("Headers already sent in $file on line $line");
+}
+
 require_once 'config/database/connection.php'; 
 require_once 'controllers/CustomSessionHandler.php';
 require_once 'controllers/BookController.php';
@@ -26,7 +30,7 @@ $userBooks = $bookController->getBooks($userId);
 $booksToUse = $userId ? $userBooks : $books;
 
 // Incloure la vista principal
-require_once 'views/layout.php'; 
+include_once 'views/layout.php'; 
 ?>
 
 

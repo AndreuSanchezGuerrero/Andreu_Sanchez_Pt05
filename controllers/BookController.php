@@ -50,8 +50,13 @@ class BookController {
         return $this->bookModel->deleteBook($id);
     }
 
-    public function getBooksByPage($limit, $offset) {
-        $stmt = $this->pdo->prepare("SELECT * FROM books LIMIT :limit OFFSET :offset");
+    public function getBooksByPage($limit, $offset, $userId = null) {
+        if ($userId) {
+            $stmt = $this->pdo->prepare("SELECT * FROM books WHERE user_id = :userId LIMIT :limit OFFSET :offset");
+            $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+        } else {
+            $stmt = $this->pdo->prepare("SELECT * FROM books LIMIT :limit OFFSET :offset");
+        }
         $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
         $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
         $stmt->execute();

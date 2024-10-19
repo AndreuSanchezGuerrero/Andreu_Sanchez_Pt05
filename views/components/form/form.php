@@ -1,4 +1,8 @@
 <?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+// Colocar todo el control de acciones aquí, al principio del archivo, para evitar cualquier salida HTML o echo antes del uso de header().
 if (CustomSessionHandler::get('success')) {
     $success = true;
     CustomSessionHandler::remove('success');
@@ -7,7 +11,6 @@ if (CustomSessionHandler::get('success')) {
     CustomSessionHandler::remove('success');
     CustomSessionHandler::remove('errors');
 }
-
 
 // Comprobar si es una acción de eliminación
 if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id'])) {
@@ -58,48 +61,31 @@ if (isset($_GET['action']) && $_GET['action'] == 'edit' && isset($_GET['id'])) {
     }
 }
 ?>
-
-
+<!-- Hasta este punto no debería haber ninguna salida hacia el navegador -->
 
 <div>
-    <!-- Formulari de creació/edició, detecta automàticament si estem en edició o creació -->
+    <!-- Formulario de creación/edición -->
     <form action="<?php echo $isEdit ? 'index.php?action=update&id=' . $bookToEdit['id'] : htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST" class="form-book">
-        <!-- Títol del formulari amb un ternari, si estem en edició editem i si no creem-->
         <h2><?php echo $isEdit ? 'Edit book' : 'Add new book'; ?></h2>
 
         <div class="form-group">
             <label for="isbn">ISBN:</label>
-            <input  type="text" 
-                    id="isbn" 
-                    name="isbn" 
-                    class="form-control" 
-                    required 
-                    value="<?php echo $isEdit ? htmlspecialchars($bookToEdit['isbn']) : ''; ?>"> <!-- Si estem en edició, carregar el ISBN del llibre -->
+            <input type="text" id="isbn" name="isbn" class="form-control" required value="<?php if ($isEdit) echo htmlspecialchars($bookToEdit['isbn']); ?>">
         </div>
 
         <div class="form-group">
             <label for="name">Book Name:</label>
-            <input  type="text" 
-                    id="name" 
-                    name="name" 
-                    class="form-control" 
-                    required 
-                    value="<?php echo $isEdit ? htmlspecialchars($bookToEdit['name']) : ''; ?>"> <!-- Si estem en edició, carregar el nom del llibre -->
+            <input type="text" id="name" name="name" class="form-control" required value="<?php if ($isEdit) echo htmlspecialchars($bookToEdit['name']); ?>">
         </div>
 
         <div class="form-group">
             <label for="author">Name of the author:</label>
-            <input  type="text" 
-                    id="author" 
-                    name="author" 
-                    class="form-control" 
-                    required 
-                    value="<?php echo $isEdit ? htmlspecialchars($bookToEdit['author']) : ''; ?>"> <!-- Si estem en edició, carregar l'autor del llibre -->
+            <input type="text" id="author" name="author" class="form-control" required value="<?php if ($isEdit) echo htmlspecialchars($bookToEdit['author']); ?>">
         </div>
 
         <button type="submit" class="btn btn-primary"><?php echo $isEdit ? 'Update book' : 'Add book'; ?></button>
 
-        <!-- Comprovar si hi han errors i mostrar-los en cas de que hi hagin -->
+        <!-- Mostrar errores si los hay -->
         <?php if (!empty($errors)): ?> 
             <div class="error">
                 <?php foreach ($errors as $error): ?>
@@ -108,8 +94,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'edit' && isset($_GET['id'])) {
             </div>
         <?php endif; ?>
 
-        <!-- Camp ocult per identificar que es el formulari de creació/edició al hora de fer el submit -->
+        <!-- Campo oculto para identificar si es edición o creación -->
         <input type="hidden" name="form_type" value="book_form">
     </form>
 </div>
-
