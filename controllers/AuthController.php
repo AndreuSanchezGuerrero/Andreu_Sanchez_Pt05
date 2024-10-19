@@ -9,22 +9,24 @@ class AuthController {
         $this->userModel = new User($pdo);
     }
 
-    // Manejar el inicio de sesión
+    // Handle login
     public function login($username, $password) {
         $user = $this->userModel->findUserByUsername($username);
 
-        if ($user && password_verify($password, $user['password'])) { //password_verify($password, $user['password'])
+        if ($user && password_verify($password, $user['password'])) {
+            // if user exists and password is correct set session variables to store user data 
             CustomSessionHandler::set('user_id', $user['id']);
-            CustomSessionHandler::set('username', $user['username']);
-            CustomSessionHandler::set('login_success', true); // Indicar que el login fue exitoso
+            CustomSessionHandler::set('username', $user['username']); 
+            // Save login success in session to show success message
+            CustomSessionHandler::set('login_success', true);
             return true;
         } else {
-            CustomSessionHandler::set('login_error', 'Usuario o contraseña incorrectos.'); // Guardar error en sesión
+            CustomSessionHandler::set('login_error', 'Usuario o contraseña incorrectos.');
             return false;
         }
     }
 
-    // Manejar el cierre de sesión
+    // Handle logout
     public function logout() {
         CustomSessionHandler::remove('user_id');
         CustomSessionHandler::remove('username');

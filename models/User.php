@@ -6,15 +6,6 @@ class User {
         $this->pdo = $pdo;
     }
 
-    public function findUserByUsername($username) {
-        $sql = "SELECT * FROM users WHERE username = :username";
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->bindParam(':username', $username);
-        $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
-
-     // Crear un nuevo usuario
     public function createUser($username, $email, $password) {
         $sql = "INSERT INTO users (username, email, password) VALUES (:username, :email, :password)";
         $stmt = $this->pdo->prepare($sql);
@@ -24,11 +15,17 @@ class User {
             ':password' => $password
         ]);
 
-        // Retornar el ID del usuario recién creado
         return $this->pdo->lastInsertId();
     }
 
-    // Buscar un usuario por correo electrónico
+    public function findUserByUsername($username) {
+        $sql = "SELECT * FROM users WHERE username = :username";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':username', $username);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     public function findUserByEmail($email) {
         $sql = "SELECT * FROM users WHERE email = :email";
         $stmt = $this->pdo->prepare($sql);
@@ -36,5 +33,4 @@ class User {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }
-
 ?>
