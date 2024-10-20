@@ -1,6 +1,8 @@
 <?php
 // Andreu Sánchez Guerrero
-session_start(); // Iniciar sesión
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 require_once __DIR__ . '/../../../config/database/connection.php';
 require_once BASE_PATH . 'controllers/CustomSessionHandler.php'; 
@@ -23,7 +25,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body class="caja">
     <div class="login-container">
-        <!-- Capçalera -->
         <?php include BASE_PATH . 'views/components/header/header.php'; ?>
         <h2 class="login-title">Login</h2>
         <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST" class="form-login">
@@ -37,7 +38,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
             <button type="submit" class="btn btn-primary">Login</button>
         </form>
-        <!-- Añadir un enlace a la página de registro -->
         <div class="register-prompt">
             <p>Don't have an account yet? <a href="<?php echo BASE_URL; ?>views/auth/register/register.php">Sign up now!</a></p>
         </div>

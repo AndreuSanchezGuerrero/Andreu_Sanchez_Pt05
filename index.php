@@ -1,6 +1,8 @@
 <?php
 // Andreu Sánchez Guerrero
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 require_once 'config/database/connection.php'; 
 require_once 'controllers/CustomSessionHandler.php';
 require_once 'controllers/BookController.php';

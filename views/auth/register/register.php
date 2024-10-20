@@ -1,11 +1,12 @@
 <?php
 // Andreu Sánchez Guerrero
-session_start(); // Iniciar sesión
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 require_once __DIR__ . '/../../../config/database/connection.php';
 require_once BASE_PATH . 'controllers/CustomSessionHandler.php'; 
 
-// Solo incluir el controlador si se ha enviado el formulario
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     require_once BASE_PATH . 'controllers/registerController.php';
 }

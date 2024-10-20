@@ -11,22 +11,14 @@
 </head>
 <body>  
     <main>
-        <!-- Contenidor d'alertes -->
         <?php include 'components/alert/alert.php'; ?>
 
         <div class="container">
-
-            <!-- Capçalera -->
             <?php include 'components/header/header.php'; ?>
-
-            <!-- Formulari (Solo si está logueado) -->
             <?php if ($userId): ?>
                 <?php include 'components/form/form.php'; ?>
             <?php endif; ?>
-            
-            <!-- Llistat de llibres -->
             <?php include 'components/books/books.php'; ?>
-
             <?php include 'components/footer/footer.php'; ?>
         </div>
     </main>

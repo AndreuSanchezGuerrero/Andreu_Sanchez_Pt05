@@ -4,7 +4,13 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
+if (isset($_POST['form_type']) && $_POST['form_type'] == 'book_form') {
+    include 'controllers/form-data-control.php';
+    exit();
+}
+
 include BASE_PATH . 'controllers/editOrDeleteFormDataController.php';
+
 
 if (CustomSessionHandler::get('success')) {
     $success = true;
@@ -14,16 +20,10 @@ if (CustomSessionHandler::get('success')) {
     CustomSessionHandler::remove('success');
     CustomSessionHandler::remove('errors');
 }
-
-if (isset($_POST['form_type']) && $_POST['form_type'] == 'book_form') {
-    include 'controllers/form-data-control.php';
-    exit();
-}
 ?>
 
 
 <div>
-    <!-- Formulario de creación/edición -->
     <form action="<?php echo $isEdit ? 'index.php?action=update&id=' . $bookToEdit['id'] : htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST" class="form-book">
         <h2><?php echo $isEdit ? 'Edit book' : 'Add new book'; ?></h2>
 
@@ -44,7 +44,6 @@ if (isset($_POST['form_type']) && $_POST['form_type'] == 'book_form') {
 
         <button type="submit" class="btn btn-primary"><?php echo $isEdit ? 'Update book' : 'Add book'; ?></button>
 
-        <!-- Mostrar errores si los hay -->
         <?php if (!empty($errors)): ?> 
             <div class="error">
                 <?php foreach ($errors as $error): ?>
@@ -53,7 +52,6 @@ if (isset($_POST['form_type']) && $_POST['form_type'] == 'book_form') {
             </div>
         <?php endif; ?>
 
-        <!-- Campo oculto para identificar si es edición o creación -->
         <input type="hidden" name="form_type" value="book_form">
     </form>
 </div>
