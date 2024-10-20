@@ -50,7 +50,6 @@ if (!empty($errors)) {
             $id = $_GET['id'];
             $bookModel->updateBook($id, $isbn, $name, $author);  // Cambiado a libro
             CustomSessionHandler::set('operation', 'update');
-        
         } else {
             // Modo creación -> insertar libro
             $bookModel->createBook($isbn, $name, $author, $userId);  // Cambiado a libro

@@ -43,12 +43,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: " . $_SERVER['PHP_SELF'] . "?page=" . $page);
         exit();
     }
-
-    // Manejo del formulario de libros
-    elseif (isset($_POST['form_type']) && $_POST['form_type'] == 'book_form') {
-        include 'controllers/form-data-control.php';
-        exit();
-    }
 }
 ?>
 

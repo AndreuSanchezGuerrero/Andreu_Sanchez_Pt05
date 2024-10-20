@@ -1,8 +1,11 @@
 <?php
+// Andreu Sánchez Guerrero
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-// Colocar todo el control de acciones aquí, al principio del archivo, para evitar cualquier salida HTML o echo antes del uso de header().
+
+include BASE_PATH . 'controllers/editOrDeleteFormDataController.php';
+
 if (CustomSessionHandler::get('success')) {
     $success = true;
     CustomSessionHandler::remove('success');
@@ -12,56 +15,12 @@ if (CustomSessionHandler::get('success')) {
     CustomSessionHandler::remove('errors');
 }
 
-// Comprobar si es una acción de eliminación
-if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id'])) {
-    $id = $_GET['id'];
-
-    // Verificar si el ID es un número entero válido
-    if (!filter_var($id, FILTER_VALIDATE_INT)) {
-        CustomSessionHandler::set('errorsUrl', "L'ID especificat no és vàlid.");
-        header("Location: index.php");
-        exit();
-    } else {
-        $bookToDelete = $bookController->getBookById($id);
-
-        if (!$bookToDelete) {
-            CustomSessionHandler::set('errorsUrl', "El llibre amb l'ID especificat no existeix.");
-            header("Location: index.php");
-            exit();
-        } else {
-            // Eliminar el libro
-            $bookController->deleteBook($id);
-            CustomSessionHandler::set('operation', 'delete');
-            CustomSessionHandler::set('success', true);
-            header("Location: index.php");
-            exit();
-        }
-    }
-}
-
-// Comprobar si es una acción de edición
-if (isset($_GET['action']) && $_GET['action'] == 'edit' && isset($_GET['id'])) {
-    $bookId = $_GET['id'];
-
-    // Verificar si el ID es un número entero válido
-    if (!filter_var($bookId, FILTER_VALIDATE_INT)) {
-        CustomSessionHandler::set('errorsUrl', "L'ID especificat no és vàlid.");
-        header("Location: index.php");
-        exit();
-    } else {
-        $bookToEdit = $bookController->getBookById($bookId);
-
-        if (!$bookToEdit) {
-            CustomSessionHandler::set('errorsUrl', "El llibre amb l'ID especificat no existeix.");
-            header("Location: index.php");
-            exit();
-        } else {
-            $isEdit = true;
-        }
-    }
+if (isset($_POST['form_type']) && $_POST['form_type'] == 'book_form') {
+    include 'controllers/form-data-control.php';
+    exit();
 }
 ?>
-<!-- Hasta este punto no debería haber ninguna salida hacia el navegador -->
+
 
 <div>
     <!-- Formulario de creación/edición -->
@@ -98,3 +57,4 @@ if (isset($_GET['action']) && $_GET['action'] == 'edit' && isset($_GET['id'])) {
         <input type="hidden" name="form_type" value="book_form">
     </form>
 </div>
+
