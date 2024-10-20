@@ -5,13 +5,10 @@ form .error p {
     align-items: center;
 }
 
-/* Icona d'error dins del formulari */
 form .error i {
     margin-right: 5px;
     font-size: 18px;
 }
-
-/* Estils de la Taula */
 
 .table {
     width: 100%;
@@ -29,7 +26,7 @@ form .error i {
 }
 
 .table tbody tr:nth-child(odd) {
-    background-color: #e8ecf4;; 
+    background-color: #FDE6E2; 
 }
 
 .table tbody tr:nth-child(even) {
@@ -43,7 +40,7 @@ form .error i {
 .btn-sm {
     padding: 8px 11px;
     margin: 0 5px; 
-    transition: background-color 0.3s ease, color 0.3s ease; /* Transición suave al hacer hover */
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Botón de Editar (lápiz) */

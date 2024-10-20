@@ -1,4 +1,3 @@
-/* Centrado del contenedor */
 .caja {
     margin: 0;
     padding: 20px;
@@ -9,7 +8,6 @@
     background-image: url('../../img/biblio.avif');
 }
 
-/* Contenedor principal */
 .login-container {
     max-width: 620px;
     margin: 40px auto;
@@ -24,7 +22,6 @@
     font-size: 2em;
 }
 
-/* Botons */
 .btn {
     padding: 10px 15px;
     border: none;

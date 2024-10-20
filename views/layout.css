@@ -1,15 +1,23 @@
 /* Andreu Sánchez Guerrero */
 
-/* General */
+@import url(auth/login/login.css);
+@import url(auth/register/register.css);
+@import url(components/alert/alert.css);
+@import url(components/header/header.css);
+@import url(components/footer/footer.css);
+@import url(components/books/books.css);
+@import url(components/form/from.css);
+@import url(components/pagination/pagination.css);
+
 body {
     font-family: Arial, sans-serif;
     background-image: url(img/biblio.avif);
     margin: 0;
     padding: 20px;
-    background-size: cover;  /* Hace que la imagen cubra toda la pantalla */
-    background-position: center;  /* Centra la imagen */
-    background-repeat: no-repeat;  /* Evita que la imagen se repita */
-    background-attachment: fixed;  /* Mantiene la imagen fija al hacer scroll */
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat;  
+    background-attachment: fixed;
 }
 
 h2 {
@@ -17,7 +25,6 @@ h2 {
     font-size: 2em;
 }
 
-/* Estructura de contenidors layout */
 .container {
     max-width: 720px;
     margin: 30px auto;
@@ -31,10 +38,8 @@ h2 {
     margin-top: 50px;
 }
 
-
-/* Botons */
 .btn {
-    padding: 10px 15px;
+    padding: 8px 13px;
     border: none;
     border-radius: 5px;
     text-decoration: none;

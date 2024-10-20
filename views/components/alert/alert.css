@@ -1,11 +1,9 @@
 /* Andreu Sánchez Guerrero */
-/* Estil dels missatges d'error */
 .error {
     color: #cc0014; 
     text-align: left;
 }
 
-/* Estil del missatge d'alerta */
 .alert {
     margin:auto; 
     width: 300px;
@@ -22,12 +20,6 @@
     left: 37.5%;
 }
 
-/* Estil del missatge d'alerta d'error */
-.alert.error {
-    background-color: #f44336;
-}
-
-/* Mostrar el missatge d'alerta */
 .alert.show {
     display: block; 
     opacity: 1;
