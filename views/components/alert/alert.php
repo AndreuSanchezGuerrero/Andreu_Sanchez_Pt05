@@ -15,11 +15,14 @@ $success = CustomSessionHandler::get('success');
 $errors = CustomSessionHandler::get('errors');
 $operation = CustomSessionHandler::get('operation');
 $errorsForm = CustomSessionHandler::get('errorsForm');
+$errorsRegister = CustomSessionHandler::get('errorsRegister');
 
 CustomSessionHandler::remove('success');
 CustomSessionHandler::remove('errors');
 CustomSessionHandler::remove('operation');
 CustomSessionHandler::remove('errorsForm');
+CustomSessionHandler::remove('errorsRegister');
+
 ?>
 
 <div id="alert" class="alert"></div>
@@ -35,6 +38,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let success = "<?php echo addslashes($success); ?>";
     let errors = "<?php echo addslashes($errors); ?>";
     let errorsForm = "<?php echo addslashes($errorsForm); ?>";
+    let errorsRegister = "<?php echo addslashes($errorsRegister); ?>";
 
     // Mostrar errores de URL
     if (errorsUrl) {
@@ -57,6 +61,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (errorsForm) {
         showAlert(errorsForm, 'error');
+    }
+
+    if (errorsRegister) {
+        showAlert(errorsRegister, 'error');
     }
 
     // Mostrar alerta basada en la operación realizada (crear, actualizar, eliminar)

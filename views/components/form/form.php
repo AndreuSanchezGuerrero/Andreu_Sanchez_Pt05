@@ -3,13 +3,11 @@
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
+include BASE_PATH . 'controllers/editOrDeleteFormDataController.php';
 
 if (isset($_POST['form_type']) && $_POST['form_type'] == 'book_form') {
     include 'controllers/form-data-control.php';
-    exit();
 }
-
-include BASE_PATH . 'controllers/editOrDeleteFormDataController.php';
 ?>
 
 

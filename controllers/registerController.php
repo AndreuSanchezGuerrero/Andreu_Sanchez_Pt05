@@ -2,58 +2,73 @@
 // Andreu Sánchez Guerrero
 require_once BASE_PATH . 'models/User.php';
 
-// Inicializar errores
-$errors = [];
+function isStrongPassword($password) {
+    $minLength = 8;
 
-// Validar los campos
+    if (strlen($password) < $minLength) {
+        return "Password must be at least $minLength characters long.";
+    }
+    
+    if (!preg_match('/[a-z]/', $password)) {
+        return "Password must contain at least one lowercase letter.";
+    }
+    
+    if (!preg_match('/[A-Z]/', $password)) {
+        return "Password must contain at least one uppercase letter.";
+    }
+    
+    if (!preg_match('/[0-9]/', $password)) {
+        return "Password must contain at least one number.";
+    }
+
+    if (!preg_match('/[\W]/', $password)) {
+        return "Password must contain at least one special character (e.g., !@#$%^&*).";
+    }
+
+    return true;
+}
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username']);
     $email = trim($_POST['email']);
     $password = trim($_POST['password']);
     $confirm_password = trim($_POST['confirm_password']);
 
-    // Validar campos vacíos
-    if (empty($username)) {
-        $errors[] = "El nombre de usuario es obligatorio.";
-    }
-    if (empty($email)) {
-        $errors[] = "El correo electrónico es obligatorio.";
-    }
-    if (empty($password)) {
-        $errors[] = "La contraseña es obligatoria.";
+    if (empty($username) || empty($email) || empty($password) || empty($confirm_password)) {
+        CustomSessionHandler::set('errorsRegister', 'All fields are required.');
     }
     if ($password !== $confirm_password) {
-        $errors[] = "Las contraseñas no coinciden.";
+        CustomSessionHandler::set('errorsRegister', 'Passwords do not match.');
     }
 
-    // Validar si el email ya está registrado
     $userModel = new User($pdo);
     if ($userModel->findUserByEmail($email)) {
-        $errors[] = "El correo electrónico ya está registrado.";
+        CustomSessionHandler::set('errorsRegister', 'The email is already registered.');
     }
 
-    // Validar si el nombre de usuario ya está registrado
     if ($userModel->findUserByUsername($username)) {
-        $errors[] = "El nombre de usuario ya está registrado.";
+        CustomSessionHandler::set('errorsRegister', 'The username is already registered.');
     }
 
-    // Si no hay errores, proceder con el registro
-    if (empty($errors)) {
-        // Hashear la contraseña
-        $hashed_password = password_hash($password, PASSWORD_BCRYPT);
+    $passwordStrength = isStrongPassword($password);
+    if ($passwordStrength !== true) {
+        CustomSessionHandler::set('errorsRegister', $passwordStrength);
+    }
 
-        // Crear el usuario
+    if (!CustomSessionHandler::get('errorsRegister')) {
+        $hashed_password = password_hash($password, PASSWORD_BCRYPT);
         $userId = $userModel->createUser($username, $email, $hashed_password);
 
-        // Iniciar sesión automáticamente
         CustomSessionHandler::set('user_id', $userId);
         CustomSessionHandler::set('username', $username);
+        CustomSessionHandler::set('login_success', 'Welcome, ' . $username . '!');
 
-        // Redirigir al usuario a la página de inicio
         header("Location: " . BASE_URL . "index.php");
         exit();
     } else {
-        CustomSessionHandler::set('errors', $errors);
+        header("Location: " . BASE_URL . "views/auth/register/register.php");
+        exit();
     }
 }
 ?>

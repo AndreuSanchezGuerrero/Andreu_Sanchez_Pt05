@@ -21,9 +21,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="register.css">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>views/components/header/header.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> 
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>views/components/alert/alert.css">
+    <script defer src="<?php echo BASE_URL; ?>views/components/alert/alert.js"></script>
 </head>
 
 <body class="box">
+    <?php include BASE_PATH . 'views/components/alert/alert.php'; ?>
     <div class="register-container">
         <?php include BASE_PATH . 'views/components/header/header.php'; ?>
         <h2 class="register-title">Create an Account</h2>
