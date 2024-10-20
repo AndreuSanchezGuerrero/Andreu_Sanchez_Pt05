@@ -60,4 +60,22 @@ class Book {
 
         return $stmt->execute();
     }
+
+    public function isIsbnExists($isbn, $excludeId = null) {
+        $query = "SELECT COUNT(*) FROM books WHERE isbn = :isbn";
+        
+        if ($excludeId) {
+            $query .= " AND id != :excludeId";
+        }
+
+        $stmt = $this->pdo->prepare($query);
+        $stmt->bindParam(':isbn', $isbn, PDO::PARAM_STR);
+
+        if ($excludeId) {
+            $stmt->bindParam(':excludeId', $excludeId, PDO::PARAM_INT);
+        }
+
+        $stmt->execute();
+        return $stmt->fetchColumn() > 0;
+    }
 }
