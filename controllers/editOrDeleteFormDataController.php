@@ -1,4 +1,6 @@
 <?php
+$bookController = new BookController($pdo);
+$errorsUrl = '';
 // Comprobar si es una acción de eliminación
 if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id'])) {
     $id = $_GET['id'];

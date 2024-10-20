@@ -18,7 +18,7 @@ class AuthController {
             CustomSessionHandler::set('user_id', $user['id']);
             CustomSessionHandler::set('username', $user['username']); 
             // Save login success in session to show success message
-            CustomSessionHandler::set('login_success', true);
+            CustomSessionHandler::set('login_success', 'Successfully logged in.');
             return true;
         } else {
             CustomSessionHandler::set('login_error', 'Usuario o contraseña incorrectos.');
@@ -34,7 +34,7 @@ class AuthController {
         session_destroy();
         session_start();
         // Añadir mensaje de éxito al cerrar la sesión
-        CustomSessionHandler::set('logout_message', true);
+        CustomSessionHandler::set('logout_message', 'Successfully logged out.');
         header("Location: " . BASE_URL . "index.php");
         exit();
     }

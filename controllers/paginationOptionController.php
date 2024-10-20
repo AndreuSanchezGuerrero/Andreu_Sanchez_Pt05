@@ -10,8 +10,8 @@ if (!filter_var($page, FILTER_VALIDATE_INT) || $page < 1 || $page > $totalPages)
     header("Location: " . $_SERVER['PHP_SELF'] . "?page=1");
     exit();
 }
-setcookie('currentPage', $page, time() + (86400 * 30), "/"); 
 
+setcookie('currentPage', $page, time() + (86400 * 30), "/");
 $offset = ($page - 1) * $booksPerPage;
 
 $booksToShow = $bookController->getBooksByPage($booksPerPage, $offset, CustomSessionHandler::get('user_id')); 

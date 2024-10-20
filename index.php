@@ -14,5 +14,3 @@ $bookToEdit = null;
 $userId = CustomSessionHandler::get('user_id') ?? null; 
 include_once 'views/layout.php'; 
 ?>
-
-

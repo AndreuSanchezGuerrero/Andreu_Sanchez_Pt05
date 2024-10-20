@@ -10,16 +10,6 @@ if (isset($_POST['form_type']) && $_POST['form_type'] == 'book_form') {
 }
 
 include BASE_PATH . 'controllers/editOrDeleteFormDataController.php';
-
-
-if (CustomSessionHandler::get('success')) {
-    $success = true;
-    CustomSessionHandler::remove('success');
-} elseif (!CustomSessionHandler::get('success')) {
-    $errors = CustomSessionHandler::get('errors');
-    CustomSessionHandler::remove('success');
-    CustomSessionHandler::remove('errors');
-}
 ?>
 
 
@@ -43,16 +33,7 @@ if (CustomSessionHandler::get('success')) {
         </div>
 
         <button type="submit" class="btn btn-primary"><?php echo $isEdit ? 'Update book' : 'Add book'; ?></button>
-
-        <?php if (!empty($errors)): ?> 
-            <div class="error">
-                <?php foreach ($errors as $error): ?>
-                    <p class="error-msg"><i class="fas fa-exclamation-circle"></i> <?php echo $error; ?></p>
-                <?php endforeach; ?>
-            </div>
-        <?php endif; ?>
-
+        
         <input type="hidden" name="form_type" value="book_form">
     </form>
 </div>
-

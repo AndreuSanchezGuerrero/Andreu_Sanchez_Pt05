@@ -1,7 +1,7 @@
 <?php
 
 $errorsUrl = CustomSessionHandler::get('errorsUrl');
-CustomSessionHandler::remove('errorsUrl');
+CustomSessionHandler::remove('errorsUrl');  
 
 $loginError = CustomSessionHandler::get('login_error');
 $loginSuccess = CustomSessionHandler::get('login_success');
@@ -14,33 +14,50 @@ CustomSessionHandler::remove('logout_message');
 $success = CustomSessionHandler::get('success');
 $errors = CustomSessionHandler::get('errors');
 $operation = CustomSessionHandler::get('operation');
+$errorsForm = CustomSessionHandler::get('errorsForm');
 
 CustomSessionHandler::remove('success');
 CustomSessionHandler::remove('errors');
 CustomSessionHandler::remove('operation');
+CustomSessionHandler::remove('errorsForm');
 ?>
 
 <div id="alert" class="alert"></div>
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    <?php if (!empty($errorsUrl)): ?> 
-        showAlert(errorsUrl, 'error'); 
-    <?php endif; ?>
 
-    <?php if (!empty($loginError)): ?>
-        showAlert(loginError, 'error');
-    <?php endif; ?>
-
-    <?php if (!empty($loginSuccess) && $loginSuccess === true): ?>
-        showAlert('Successful login', 'success');
-    <?php endif; ?>
-
-    <?php if (!empty($logoutMessage)): ?>
-        showAlert('Successful logout.', 'success');
-    <?php endif; ?>
-
+    let errorsUrl = "<?php echo addslashes($errorsUrl); ?>";
+    let loginError = "<?php echo addslashes($loginError); ?>";
+    let loginSuccess = "<?php echo addslashes($loginSuccess); ?>";
+    let logoutMessage = "<?php echo addslashes($logoutMessage); ?>";
     let operation = "<?php echo addslashes($operation); ?>";
+    let success = "<?php echo addslashes($success); ?>";
+    let errors = "<?php echo addslashes($errors); ?>";
+    let errorsForm = "<?php echo addslashes($errorsForm); ?>";
+
+    // Mostrar errores de URL
+    if (errorsUrl) {
+        showAlert(errorsUrl, 'error');
+    }
+
+    // Mostrar errores de login
+    if (loginError) {
+        console.log(loginError);
+        showAlert(loginError, 'error');
+    }
+
+    if (loginSuccess) {
+        showAlert(loginSuccess, 'success');
+    }
+
+    if (logoutMessage) {
+        showAlert(logoutMessage, 'success');
+    }
+
+    if (errorsForm) {
+        showAlert(errorsForm, 'error');
+    }
 
     // Mostrar alerta basada en la operación realizada (crear, actualizar, eliminar)
     <?php if (!empty($errors)): ?>
