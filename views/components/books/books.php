@@ -1,5 +1,7 @@
-<!-- Andreu Sánchez Guerrero -->
-
+<?php
+// Andreu Sánchez Guerrero
+include BASE_PATH . 'controllers/bookListController.php';
+?>
 <div class="col-6">
     <div class="header-section">
         <?php if ($userId): ?>

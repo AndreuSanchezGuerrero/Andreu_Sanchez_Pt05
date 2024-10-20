@@ -1,5 +1,5 @@
 <?php
-// Obtener posibles errores de URL desde la sesión
+
 $errorsUrl = CustomSessionHandler::get('errorsUrl');
 CustomSessionHandler::remove('errorsUrl');
 
@@ -11,12 +11,10 @@ CustomSessionHandler::remove('login_success');
 $logoutMessage = CustomSessionHandler::get('logout_message');
 CustomSessionHandler::remove('logout_message');
 
-// Obtener el estado de éxito o errores generales del formulario
 $success = CustomSessionHandler::get('success');
 $errors = CustomSessionHandler::get('errors');
 $operation = CustomSessionHandler::get('operation');
 
-// Limpiar la sesión de esos valores una vez que se hayan utilizado
 CustomSessionHandler::remove('success');
 CustomSessionHandler::remove('errors');
 CustomSessionHandler::remove('operation');
@@ -35,26 +33,25 @@ document.addEventListener("DOMContentLoaded", function() {
     <?php endif; ?>
 
     <?php if (!empty($loginSuccess) && $loginSuccess === true): ?>
-        showAlert('Inicio de sesión exitoso', 'success');
+        showAlert('Successful login', 'success');
     <?php endif; ?>
 
     <?php if (!empty($logoutMessage)): ?>
-        showAlert('Has cerrado sesión correctamente.', 'success');
+        showAlert('Successful logout.', 'success');
     <?php endif; ?>
 
-    // Obtenemos la operación de la sesión: puede ser 'create', 'update', o 'delete'
     let operation = "<?php echo addslashes($operation); ?>";
 
     // Mostrar alerta basada en la operación realizada (crear, actualizar, eliminar)
     <?php if (!empty($errors)): ?>
-        showAlert('Hi ha errors en el formulari, revisa els camps.', 'error');
+        showAlert('There are errors in the form, please check fields.', 'error');
     <?php elseif (!empty($success) && $success === true): ?>
         if (operation === 'update') {
-            showAlert('S\'ha actualitzat correctament el llibre.', 'success');
+            showAlert('Successfully updated book.', 'success');
         } else if (operation === 'create') {
-            showAlert('S\'ha afegit un llibre correctament.', 'success');
+            showAlert('Successfully added book', 'success');
         } else if (operation === 'delete') {
-            showAlert('S\'ha eliminat correctament el llibre.', 'success');
+            showAlert('Successfully removed book.', 'success');
         }
     <?php endif; ?>
 });

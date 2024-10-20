@@ -24,7 +24,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body class="box">
     <div class="register-container">
-        <!-- Header -->
         <?php include BASE_PATH . 'views/components/header/header.php'; ?>
         <h2 class="register-title">Create an Account</h2>
         <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST" class="form-register">

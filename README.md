@@ -25,6 +25,8 @@ Diferences between BASE_PATH and BASE_URL:
 
 - BASE_URL: Refers to the URL path for serving content to the client-side/browser (e.g., linking styles, scripts, and assets).
 
+<br>
+
 ## models directory 📂
 
 Each file in this directory corresponds to a specific entity or table in the database, and the methods within each class handle database CRUD operations related to that entity.
@@ -36,5 +38,11 @@ At the moment we only handle data from Users and Books.
 In the createUser method we return the id to be logged in as soon as the user registers.
 
 TODO: Make it possible for the user to edit his profile or delete his account.
+
+<br>
+
+## views directory 📂
+
+
 
 ### 🐘 🎨
