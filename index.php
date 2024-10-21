@@ -12,7 +12,6 @@ $errorsUrl = '';
 $isEdit = false;
 $bookToEdit = null;
 $userId = CustomSessionHandler::get('user_id') ?? null; 
-$page = isset($_GET['page']) ? (int)$_GET['page'] : (isset($_COOKIE['currentPage']) ? (int)$_COOKIE['currentPage'] : 1);
-setcookie('currentPage', $page, time() + (86400 * 30), "/");
+$authController->checkSessionTimeout();
 include_once 'views/layout.php'; 
 ?>
