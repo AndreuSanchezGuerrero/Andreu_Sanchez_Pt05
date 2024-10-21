@@ -22,5 +22,7 @@
             <?php include 'components/footer/footer.php'; ?>
         </div>
     </main>
+
+    <script src="views/components/shared/sessionTimeout.js"></script>
 </body>
 </html>

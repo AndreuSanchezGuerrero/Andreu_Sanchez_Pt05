@@ -6,12 +6,16 @@ if (session_status() == PHP_SESSION_NONE) {
 require_once 'config/database/connection.php'; 
 require_once 'controllers/CustomSessionHandler.php';
 require_once 'controllers/BookController.php';
+require_once 'controllers/AuthController.php';
+
+$authController = new AuthController($pdo); 
+$authController->checkSessionTimeout();
+
 $success = false;
 $errors = [];
 $errorsUrl = '';
 $isEdit = false;
 $bookToEdit = null;
 $userId = CustomSessionHandler::get('user_id') ?? null; 
-$authController->checkSessionTimeout();
 include_once 'views/layout.php'; 
 ?>
