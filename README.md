@@ -25,6 +25,20 @@ Diferences between BASE_PATH and BASE_URL:
 
 - BASE_URL: Refers to the URL path for serving content to the client-side/browser (e.g., linking styles, scripts, and assets).
 
+You will also need to modify the BASE_URL to reflect the path of your project in your local XAMPP server.
+
+```php
+define('DB_VAR', [
+    'DB_HOST' => 'localhost',
+    'DB_NAME' => 'pt04_andreu_sanchez',
+    'DB_USER' => 'root',
+    'DB_PASSWORD' => '',
+]);
+
+define('BASE_PATH', dirname(__DIR__) . '/');
+define('BASE_URL', '/Backend/Andreu_Sanchez_Pt04/');
+```
+
 <br>
 
 ## models directory 📂
