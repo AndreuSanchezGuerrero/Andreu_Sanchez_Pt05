@@ -50,7 +50,6 @@ if (CustomSessionHandler::get('errorsForm')) {
                 exit();
             }
     
-            // Crear nuevo libro
             $bookModel->createBook($isbn, $name, $author, $userId);  
             CustomSessionHandler::set('operation', 'create');
         }

@@ -1,11 +1,9 @@
 <?php
 $bookController = new BookController($pdo);
 $errorsUrl = '';
-// Comprobar si es una acción de eliminación
 if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id'])) {
     $id = $_GET['id'];
 
-    // Verificar si el ID es un número entero válido
     if (!filter_var($id, FILTER_VALIDATE_INT)) {
         CustomSessionHandler::set('errorsUrl', "The specified ID is not valid.");
         header("Location: index.php");
