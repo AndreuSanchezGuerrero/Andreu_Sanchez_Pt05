@@ -24,7 +24,7 @@ if (!preg_match($isbnPattern, $isbn)) {
 }
 
 if (CustomSessionHandler::get('errorsForm')) {
-    header("Location: index.php");
+    header("Location: " . BASE_URL . "index.php");
     exit();
     
 } else {
@@ -35,7 +35,7 @@ if (CustomSessionHandler::get('errorsForm')) {
             $id = $_GET['id'];
             if ($bookModel->isIsbnExists($isbn, $id)) {
                 CustomSessionHandler::set('errorsForm', 'This ISBN is already registered for another book.');
-                header("Location: index.php?action=update&id=" . $id);
+                header("Location: " . BASE_URL . "index.php?action=update&id=" . $id);
                 exit();
             }
     
@@ -58,10 +58,10 @@ if (CustomSessionHandler::get('errorsForm')) {
         CustomSessionHandler::remove('errorsForm');
     } catch (PDOException $e) {
         CustomSessionHandler::set('errorsForm', "Error inserting book: " . $e->getMessage());
-        header("Location: index.php");
+        header("Location: " . BASE_URL . "index.php");
         exit();  
     }
 }
-header("Location: index.php");
+header("Location: " . BASE_URL . "index.php");
 exit();
 ?>

@@ -41,7 +41,7 @@ class AuthController {
     }
 
     public function checkSessionTimeout() {
-        $sessionLifetime = 60;
+        $sessionLifetime = 2400;
         
         if (CustomSessionHandler::get('start_time')) {
             $elapsedTime = time() - CustomSessionHandler::get('start_time'); 
