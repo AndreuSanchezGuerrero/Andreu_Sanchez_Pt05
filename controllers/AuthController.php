@@ -52,7 +52,7 @@ class AuthController {
                 CustomSessionHandler::remove('start_time');
 
                 session_destroy();
-                header("Location: " . BASE_URL . "login.php");
+                header("Location: " . BASE_URL . "views/auth/login/login.php");
                 exit();
             }
         }
