@@ -46,7 +46,7 @@ if (CustomSessionHandler::get('errorsForm')) {
         } else {
             if ($bookModel->isIsbnExists($isbn)) {
                 CustomSessionHandler::set('errorsForm', 'This ISBN is already registered.');
-                header("Location: index.php");
+                header("Location:" . BASE_URL . "index.php");
                 exit();
             }
     
