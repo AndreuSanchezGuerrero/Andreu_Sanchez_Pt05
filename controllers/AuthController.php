@@ -41,7 +41,7 @@ class AuthController {
     }
 
     public function checkSessionTimeout() {
-        $sessionLifetime = 60;
+        $sessionLifetime = 2400;
         
         if (CustomSessionHandler::get('start_time')) {
             $elapsedTime = time() - CustomSessionHandler::get('start_time'); 
@@ -52,7 +52,7 @@ class AuthController {
                 CustomSessionHandler::remove('start_time');
 
                 session_destroy();
-                header("Location: " . BASE_URL . "login.php");
+                header("Location: " . BASE_URL . "views/auth/login/login.php");
                 exit();
             }
         }

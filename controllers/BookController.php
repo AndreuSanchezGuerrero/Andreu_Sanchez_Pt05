@@ -9,7 +9,6 @@ class BookController {
         $this->bookModel = new Book($pdo);
     }
 
-    // Create a new book
     public function createBook($isbn, $name, $author, $userId) {
         try {
             return $this->bookModel->createBook($isbn, $name, $author, $userId);
@@ -22,17 +21,14 @@ class BookController {
         }
     }
 
-    // Get all books
     public function getBooks($userId = null) {
         return $this->bookModel->getBooks($userId);
     }
 
-    // Get a book by ID
     public function getBookById($id) {
         return $this->bookModel->getBookById($id);
     }
 
-    // Update a book
     public function updateBook($id, $isbn, $name, $author) {
         try {
             return $this->bookModel->updateBook($id, $isbn, $name, $author);
@@ -45,7 +41,6 @@ class BookController {
         }
     }
 
-    // Delete a book
     public function deleteBook($id) {
         return $this->bookModel->deleteBook($id);
     }
