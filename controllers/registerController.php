@@ -1,6 +1,6 @@
 <?php
 // Andreu Sánchez Guerrero
-require_once BASE_PATH . 'models/User.php';
+require_once BASE_PATH . 'controllers/UserController.php';
 
 function isStrongPassword($password) {
     $minLength = 8;
@@ -42,12 +42,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         CustomSessionHandler::set('errorsRegister', 'Passwords do not match.');
     }
 
-    $userModel = new User($pdo);
-    if ($userModel->findUserByEmail($email)) {
+    $userController = new UserController($pdo);
+    
+    if ($userController->getUserByEmail($email)) {
         CustomSessionHandler::set('errorsRegister', 'The email is already registered.');
     }
 
-    if ($userModel->findUserByUsername($username)) {
+    if ($userController->getUserByUsername($username)) {
         CustomSessionHandler::set('errorsRegister', 'The username is already registered.');
     }
 
@@ -58,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (!CustomSessionHandler::get('errorsRegister')) {
         $hashed_password = password_hash($password, PASSWORD_BCRYPT);
-        $userId = $userModel->createUser($username, $email, $hashed_password);
+        $userId = $userController->createUser($username, $email, $hashed_password);
 
         CustomSessionHandler::set('user_id', $userId);
         CustomSessionHandler::set('username', $username);
