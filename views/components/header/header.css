@@ -19,6 +19,12 @@ header {
     cursor: pointer;
 }
 
+.admin-icon {
+    width: 62px;
+    height: 57px;
+    cursor: pointer;
+}
+
 .dropdown-menu {
     position: absolute;
     right: -25px;

@@ -10,8 +10,12 @@
         </div>
 
         <div class="profile-menu">
-            <img src="<?php echo BASE_URL; ?>views/img/<?php echo CustomSessionHandler::get('user_id') ? 'positive.png' : 'interrogant.png'; ?>" 
-            alt="User" class="profile-icon">
+            <?php if (CustomSessionHandler::get('username') =='admin'): ?>
+                <img src="<?php echo BASE_URL; ?>views/assets/img/admin.png" alt="Admin" class="admin-icon"> 
+            <?php else: ?>
+                <img src="<?php echo BASE_URL; ?>views/assets/img/<?php echo CustomSessionHandler::get('user_id') ? 'positive.png' : 'interrogant.png'; ?>" 
+                alt="User" class="profile-icon">
+            <?php endif; ?>
 
             <div class="dropdown-menu" id="dropdownMenu">
                 <a href="<?php echo BASE_URL; ?>index.php" class="dropdown-link"> HOME <i class="fas fa-home"></i></a>
@@ -29,9 +33,15 @@
 <script src="<?php echo BASE_URL; ?>views/components/shared/togglemenu.js"></script>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        setupToggleMenu('.profile-icon', '.dropdown-menu');
-    });
+    <?php if (CustomSessionHandler::get('username') =='admin'): ?>
+        document.addEventListener("DOMContentLoaded", function() {
+            setupToggleMenu('.admin-icon', '.dropdown-menu');
+        });
+    <?php else: ?>
+        document.addEventListener("DOMContentLoaded", function() {
+            setupToggleMenu('.profile-icon', '.dropdown-menu');
+        });
+    <?php endif; ?>
 </script>
 
 

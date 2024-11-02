@@ -16,6 +16,7 @@ $errors = CustomSessionHandler::get('errors');
 $operation = CustomSessionHandler::get('operation');
 $errorsForm = CustomSessionHandler::get('errorsForm');
 $errorsRegister = CustomSessionHandler::get('errorsRegister');
+$deleteUser = CustomSessionHandler::get('deleteUser');
 
 CustomSessionHandler::remove('success');
 CustomSessionHandler::remove('errors');
@@ -39,13 +40,12 @@ document.addEventListener("DOMContentLoaded", function() {
     let errors = "<?php echo addslashes($errors); ?>";
     let errorsForm = "<?php echo addslashes($errorsForm); ?>";
     let errorsRegister = "<?php echo addslashes($errorsRegister); ?>";
+    let deleteUser = "<?php echo addslashes($deleteUser); ?>";
 
-    // Mostrar errores de URL
     if (errorsUrl) {
         showAlert(errorsUrl, 'error');
     }
 
-    // Mostrar errores de login
     if (loginError) {
         console.log(loginError);
         showAlert(loginError, 'error');
@@ -67,7 +67,10 @@ document.addEventListener("DOMContentLoaded", function() {
         showAlert(errorsRegister, 'error');
     }
 
-    // Mostrar alerta basada en la operación realizada (crear, actualizar, eliminar)
+    if (deleteUser) {
+        showAlert(deleteUser, 'success');
+    }
+
     <?php if (!empty($errors)): ?>
         showAlert('There are errors in the form, please check fields.', 'error');
     <?php elseif (!empty($success) && $success === true): ?>
