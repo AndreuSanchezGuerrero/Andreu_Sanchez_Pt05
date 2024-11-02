@@ -1,0 +1,30 @@
+    <?php 
+        include BASE_PATH . 'controllers/UserController.php';
+        $userController = new UserController($pdo);
+        include BASE_PATH . 'controllers/userDeleteController.php';
+        $users = $userController->getAllUsers();
+    ?>
+    <table class="table">
+            <thead>
+                <tr>
+                    <th>PROFILE</th>
+                    <th>NAME</th>
+                    <th>EMAIL</th> 
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($users as $user): ?>
+                    <tr>
+                        <td></td>  
+                        <td><?= htmlspecialchars($user['username']); ?></td>  
+                        <td><?= htmlspecialchars($user['email']); ?></td>  
+                        <td class="text-right">
+                            <a href="index.php?action=delete&id=<?= $user['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure to delete this user?');">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
