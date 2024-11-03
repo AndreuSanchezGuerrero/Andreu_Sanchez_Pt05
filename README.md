@@ -125,3 +125,35 @@ The controllers directory is made up of various controllers that handle all the 
 - If the validation is successful, the controller calls the model and either retrieves or executes the necessary request for the specific action.
 
 The most notable controller is the registration controller, which includes regex for validation. The rest of the controllers have code that is straightforward enough to understand without much explanation. However, if you have any questions, feel free to ask.
+
+<br>
+
+## Ajax in pagination.
+
+**Step 1:** Setting Up the JavaScript for AJAX Pagination
+
+The JavaScript file (ajax-pagination.js) is responsible for handling pagination actions and updating the page content without a full page reload.
+
+Key Responsibilities of ajax-pagination.js:
+
+- **Capture Pagination Events:** The script listens for clicks on pagination links (e.g., page numbers, "Next", "Previous") and changes in the "items per page" dropdown.
+
+- **Send AJAX Requests:** When a pagination control is clicked, the script sends an AJAX request to the server, passing parameters such as the current page and items per page.
+
+- **Update Page Content:** Once the server responds, the script replaces the content of the relevant HTML elements with the new data.
+
+**Step 2:** Server-Side PHP Script for AJAX Handling
+
+The server-side PHP script (ajax-booksController.php) processes the AJAX request. Its main tasks are to fetch paginated data from the database and return it in a JSON format to the JavaScript.
+
+**Capture HTML Output:**
+
+Uses **ob_start()** and **ob_get_clean()** to capture the rows (<tbody>) HTML from books.php.
+
+**Step 3:** Updating books.php and pagination.php for AJAX Compatibility
+books.php: HTML for the Table
+
+In books.php, we want to make sure that only the rows (<tbody>) are updated with AJAX, so we wrap the <table>, <thead>, and opening <tbody> tags in a condition that only outputs them on the first load thanks to an isAjax conditional variable.
+
+If $isAjax is true, it means that this is an AJAX request.
+If $isAjax is false, it means this is the first page load.

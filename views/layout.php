@@ -12,14 +12,18 @@
 <body>  
     <main>
         <?php include 'components/alert/alert.php'; ?>
-
         <div class="container">
+            
             <?php include 'components/header/header.php'; ?>
-            <?php if ($userId): ?>
-                <?php include 'components/form/form.php'; ?>
-            <?php endif; ?>
-            <?php include 'components/books/books.php'; ?>
-            <?php include 'components/footer/footer.php'; ?>
+            <?php if (!$isAdmin): ?>
+                <?php if ($userId && !$isAdmin): ?>
+                    <?php include 'components/form/form.php'; ?>
+                <?php endif; ?>
+                <?php include 'components/books/books.php'; ?>
+            <?php else: ?>
+                <?php include 'admin/users.php'; ?>
+                <?php endif; ?>    
+                <?php include 'components/footer/footer.php'; ?>
         </div>
     </main>
 
