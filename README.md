@@ -72,6 +72,10 @@ index.php calls layout.php
 
 The Views directory contains the components that can be viewed by the client. All these components are included in the layout.
 
+**Admin 📂**
+
+A simple page that can only be accessed with the admin user. It shows the users who have an account in the application. The administrator can delete any of them.
+
 **Auth 📂**
 
 Auth directory contains the typical auth components: 
