@@ -1,6 +1,6 @@
 <?php
 // Andreu Sánchez Guerrero
-include BASE_PATH . 'controllers/bookListController.php';
+include BASE_PATH . 'controllers/books/bookListController.php';
 
 $isAjax = isset($_GET['ajax']) && $_GET['ajax'] == 'true';
 ?>

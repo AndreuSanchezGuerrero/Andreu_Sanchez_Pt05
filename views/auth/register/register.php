@@ -5,10 +5,10 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 require_once __DIR__ . '/../../../config/database/connection.php';
-require_once BASE_PATH . 'controllers/CustomSessionHandler.php'; 
+require_once BASE_PATH . 'controllers/sessions/CustomSessionHandler.php'; 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    require_once BASE_PATH . 'controllers/registerController.php';
+    require_once BASE_PATH . 'controllers/auth/registerController.php';
 }
 ?>
 

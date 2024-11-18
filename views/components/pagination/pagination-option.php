@@ -1,6 +1,6 @@
 <?php
 // Andreu Sánchez Guerrero
-include BASE_PATH . 'controllers/paginationOptionController.php';
+include BASE_PATH . 'controllers/pagination/paginationOptionController.php';
 ?>
 <form id="paginationForm" class="form-pagination">
     <select name="booksPerPage" id="booksPerPage">

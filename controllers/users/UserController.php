@@ -24,6 +24,10 @@ class UserController {
         return $this->userModel->getAllUsers();
     }
 
+    public function getUserById($userId) {
+        return $this->userModel->getUserById($userId);
+    }
+
     public function getUserByUsername($username) {
         return $this->userModel->findUserByUsername($username);
     }
@@ -39,5 +43,14 @@ class UserController {
             throw new Exception("Error trying to delete user: " . $e->getMessage());
         }
     }
+
+    public function updateUserProfile($userId, $username, $email, $bio) {
+        return $this->userModel->updateUserProfile($userId, $username, $email, $bio);
+    }
+    
+    public function updateUserProfilePicture($userId, $profilePicPath) {
+        return $this->userModel->updateUserProfilePicture($userId, $profilePicPath);
+    }
+    
 }
 ?>

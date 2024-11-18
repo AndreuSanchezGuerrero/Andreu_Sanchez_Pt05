@@ -24,7 +24,6 @@ class AuthController {
             CustomSessionHandler::set('login_success', 'Successfully logged in.');
             return true;
         } else {
-            CustomSessionHandler::set('login_error', 'Usuario o contraseña incorrectos.');
             return false;
         }
     }

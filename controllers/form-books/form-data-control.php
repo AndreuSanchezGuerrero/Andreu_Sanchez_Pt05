@@ -1,8 +1,8 @@
 <?php
 
 // Andreu Sánchez Guerrero
-include_once 'CustomSessionHandler.php';
-require_once 'models/Books.php';
+include_once BASE_PATH . 'controllers/sessions/CustomSessionHandler.php';
+require_once BASE_PATH . 'models/Books.php';
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }

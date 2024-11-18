@@ -1,6 +1,6 @@
 <?php
 // Andreu Sánchez Guerrero
-require_once BASE_PATH . 'controllers/UserController.php';
+require_once BASE_PATH . 'controllers/users/UserController.php';
 
 function isStrongPassword($password) {
     $minLength = 8;

@@ -13,7 +13,6 @@
     <main>
         <?php include 'components/alert/alert.php'; ?>
         <div class="container">
-            
             <?php include 'components/header/header.php'; ?>
             <?php if (!$isAdmin): ?>
                 <?php if ($userId && !$isAdmin): ?>

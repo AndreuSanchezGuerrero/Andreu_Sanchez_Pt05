@@ -24,6 +24,15 @@ class User {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getUserById($userId) {
+        $sql = "SELECT * FROM users WHERE id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':id', $userId, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    
+
     public function findUserByUsername($username) {
         $sql = "SELECT * FROM users WHERE username = :username";
         $stmt = $this->pdo->prepare($sql);
@@ -45,5 +54,18 @@ class User {
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         return $stmt->execute();
     }
+
+    public function updateUserProfile($userId, $username, $email, $bio) {
+        $sql = "UPDATE users SET username = ?, email = ?, bio = ? WHERE id = ?";
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute([$username, $email, $bio, $userId]);
+    }
+    
+    public function updateUserProfilePicture($userId, $profilePicPath) {
+        $sql = "UPDATE users SET profile_picture = ? WHERE id = ?";
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute([$profilePicPath, $userId]);
+    }
+    
 }
 ?>

@@ -1,6 +1,5 @@
 <?php
 $bookController = new BookController($pdo);
-$errorsUrl = '';
 if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id'])) {
     $id = $_GET['id'];
 

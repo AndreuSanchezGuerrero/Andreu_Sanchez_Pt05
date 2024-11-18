@@ -1,7 +1,7 @@
     <?php 
-        include BASE_PATH . 'controllers/UserController.php';
+        include BASE_PATH . 'controllers/users/UserController.php';
         $userController = new UserController($pdo);
-        include BASE_PATH . 'controllers/userDeleteController.php';
+        include BASE_PATH . 'controllers/users/userDeleteController.php';
         $users = $userController->getAllUsers();
     ?>
     <table class="table">
