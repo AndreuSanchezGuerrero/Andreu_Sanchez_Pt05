@@ -21,6 +21,7 @@
                 <a href="<?php echo BASE_URL; ?>index.php" class="dropdown-link"> HOME <i class="fas fa-home"></i></a>
                 
                 <?php if (CustomSessionHandler::get('user_id')): ?>
+                    <a href="<?php echo BASE_URL; ?>views/auth/user_profile/userProfile.php" class="dropdown-link"> PROFILE <i class="fas fa-user"></i></a>
                     <a href="<?php echo BASE_URL; ?>views/auth/logout/logout.php" class="dropdown-link"> LOGOUT <i class="fas fa-times"></i></a>
                 <?php elseif (basename($_SERVER['PHP_SELF']) !== 'login.php'): ?>
                     <a href="<?php echo BASE_URL; ?>views/auth/login/login.php" class="dropdown-link"> LOGIN <i class="fas fa-sign-in-alt"></i></a>
