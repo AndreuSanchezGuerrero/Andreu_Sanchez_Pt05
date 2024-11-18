@@ -6,7 +6,7 @@ setTimeout(() => {
     let extendSession = confirm("Su sesión está por expirar. ¿Desea continuar?");
     if (extendSession) {
 
-        fetch('controllers/extendSessionController.php')
+        fetch('controllers/sessions/extendSessionController.php')
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
