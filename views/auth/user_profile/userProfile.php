@@ -5,8 +5,12 @@ require_once BASE_PATH . 'controllers/users/UserController.php';
 
 $userId = CustomSessionHandler::get('user_id');
 $userController = new UserController($pdo);
-
 $userData = $userController->getUserById($userId);
+
+$defaultProfilePic = BASE_URL . 'views/assets/img/default-user.png';
+$profilePicUrl = file_exists(BASE_PATH . 'views/assets/img/' . htmlspecialchars($userData['photo_profile'])) 
+    ? BASE_URL . 'views/assets/img/' . htmlspecialchars($userData['photo_profile']) 
+    : $defaultProfilePic;
 ?>
 
 <!DOCTYPE html>
@@ -17,24 +21,22 @@ $userData = $userController->getUserById($userId);
     <link rel="stylesheet" href="userProfile.css">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>views/components/header/header.css">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>views/components/footer/footer.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>views/components/alert/alert.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> 
     <title>Edit Profile</title>
 </head>
 <body>
 
+<div id="alert" class="alert"></div>
 <div class="container">
-    <!-- Encabezado dentro del contenedor -->
     <div class="header-container">
         <?php include BASE_PATH . 'views/components/header/header.php'; ?>
     </div>
 
-    <!-- Contenedor de perfil -->
     <div class="profile-section">
-        <!-- Formulario de Edición de Perfil -->
         <div class="profile-form">
         <h2>Edit Profile</h2>
             <form id="editProfileForm">
-                <!-- Campo para cambiar la foto de perfil -->
                 <label for="profilePic">Profile Picture:</label>
                 <input type="file" id="profilePic" name="profilePic">
                 
@@ -59,15 +61,18 @@ $userData = $userController->getUserById($userId);
                     <label for="confirmNewPassword">Confirm New Password:</label>
                     <input type="password" id="confirmNewPassword" name="confirmNewPassword">
                 </div>
-                <button type="button" id="saveProfileBtn">Guardar</button>
+                <button type="button" id="saveProfileBtn" class="bookmarkBtn" >
+                <span class="IconContainer">
+                    <i class="fas fa-save"></i>
+                </span>
+                <p class="text">Save</p>
+                </button>
             </form>
         </div>
 
-        <!-- Vista Previa en Tiempo Real -->
         <div class="profile-preview">
             <h2>Profile Preview</h2>
-            <!-- Vista previa de la foto de perfil -->
-            <img id="preview-profilePic" src="<?php echo BASE_URL . 'views/assets/img/' . htmlspecialchars($userData['photo_profile']); ?>" alt="Profile Picture">
+            <img id="preview-profilePic" src="<?php echo $profilePicUrl; ?>" alt="Profile Picture">
             <p><strong>Username:</strong> <span id="preview-username"><?php echo htmlspecialchars($userData['username']); ?></span></p>
             <p><strong>Email:</strong> <span id="preview-email"><?php echo htmlspecialchars($userData['email']); ?></span></p>
             <p><strong>Bio:</strong> <span id="preview-bio"><?php echo htmlspecialchars($userData['bio']); ?></span></p>
@@ -82,5 +87,6 @@ $userData = $userController->getUserById($userId);
 
 <script src="<?php echo BASE_URL . 'views/assets/js/acordion.js'?>"></script>
 <script src="<?php echo BASE_URL; ?>views/assets/js/ajax-edit-profile.js"></script>
+<script src="<?php echo BASE_URL; ?>views/components/alert/alert.js"></script>
 </body>
 </html>

@@ -62,10 +62,16 @@ class User {
     }
     
     public function updateUserProfilePicture($userId, $profilePicPath) {
-        $sql = "UPDATE users SET profile_picture = ? WHERE id = ?";
+        $sql = "UPDATE users SET photo_profile = ? WHERE id = ?";
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute([$profilePicPath, $userId]);
     }
-    
+    public function updateUserPassword($userId, $hashedPassword) {
+        $query = "UPDATE users SET password = :password WHERE id = :id";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->bindParam(':password', $hashedPassword);
+        $stmt->bindParam(':id', $userId, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
 }
 ?>

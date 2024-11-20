@@ -51,6 +51,10 @@ class UserController {
     public function updateUserProfilePicture($userId, $profilePicPath) {
         return $this->userModel->updateUserProfilePicture($userId, $profilePicPath);
     }
+
+    public function updateUserPassword($userId, $hashedPassword) {
+        return $this->userModel->updateUserPassword($userId, $hashedPassword);
+    }
     
 }
 ?>
