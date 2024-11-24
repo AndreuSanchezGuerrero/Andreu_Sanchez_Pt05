@@ -86,7 +86,7 @@ $profilePicUrl = file_exists(BASE_PATH . 'views/assets/img/' . htmlspecialchars(
 
 
 <script src="<?php echo BASE_URL . 'views/assets/js/acordion.js'?>"></script>
-<script src="<?php echo BASE_URL; ?>views/assets/js/ajax-edit-profile.js"></script>
+<script type="module" src="<?php echo BASE_URL; ?>views/assets/js/ajax-edit-profile.js"></script>
 <script src="<?php echo BASE_URL; ?>views/components/alert/alert.js"></script>
 </body>
 </html>

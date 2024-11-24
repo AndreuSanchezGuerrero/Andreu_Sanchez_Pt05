@@ -1,3 +1,4 @@
+import BASE_URL from '../../../config/base-url.js';
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("editProfileForm");
     const saveButton = document.getElementById("saveProfileBtn");
@@ -39,17 +40,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Guardar cambios mediante AJAX
     saveButton.addEventListener("click", function () {
-        const formData = new FormData(form); // Recopilar datos del formulario
+        const formData = new FormData(form);
 
-        fetch("/Backend/Andreu_Sanchez_Pt05/controllers/ajax/update-profile-ajax.php", {
+        fetch(`${BASE_URL}controllers/ajax/update-profile-ajax.php`, {
             method: "POST",
             body: formData,
         })
-            .then((response) => response.text()) // Obtener respuesta del servidor como texto
+            .then((response) => response.text())
             .then((data) => {
                 console.log("Server response:", data);
                 try {
-                    const jsonData = JSON.parse(data); // Convertir texto a JSON
+                    const jsonData = JSON.parse(data);
 
                     if (jsonData.success) {
                         // Mostrar mensaje de éxito con tu sistema de alertas
