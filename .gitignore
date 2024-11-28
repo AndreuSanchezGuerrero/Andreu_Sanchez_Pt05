@@ -1,1 +1,4 @@
 .vscode
+/vendor/
+/config/env.php
+/config/google.php
