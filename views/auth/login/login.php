@@ -1,4 +1,8 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 // Andreu Sánchez Guerrero
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
@@ -6,10 +10,30 @@ if (session_status() == PHP_SESSION_NONE) {
 
 require_once __DIR__ . '/../../../config/database/connection.php';
 include_once BASE_PATH . 'controllers/sessions/CustomSessionHandler.php'; 
+include_once BASE_PATH . 'controllers/auth/googleController.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     require_once BASE_PATH . 'controllers/auth/loginController.php';
 }
+
+$googleAuth = new GoogleAuthController();
+
+if (isset($_GET['code'])) {
+    try {
+        $userInfo = $googleAuth->handleCallback();
+
+        CustomSessionHandler::set('user', $userInfo);
+        CustomSessionHandler::set('user_id', $userInfo['id']);
+        CustomSessionHandler::set('username', $userInfo['name']);
+        CustomSessionHandler::set('login_success', 'You have successfully logged in with Google.');
+
+        header('Location: ' . BASE_URL . 'index.php');
+        exit();
+    } catch (Exception $e) {
+        echo 'Error al autenticar con Google: ' . $e->getMessage();
+    }
+}
+$authUrl = $googleAuth->getAuthUrl();
 ?>
 
 <!DOCTYPE html>
@@ -43,6 +67,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </form>
         <div class="register-prompt">
             <p>Don't have an account yet? <a href="<?php echo BASE_URL; ?>views/auth/register/register.php">Sign up now!</a></p>
+        </div>
+        <div class="social-login">
+            <a href="<?php echo $authUrl; ?>" class="btn btn-google">
+                <i class="fab fa-google"></i>
+            </a>
         </div>
     </div>
 </body>

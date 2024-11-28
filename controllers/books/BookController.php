@@ -1,5 +1,5 @@
 <?php
-require_once 'models/Books.php';
+require_once BASE_PATH . 'models/Books.php';
 class BookController {
     private $pdo;
     private $bookModel;
@@ -21,8 +21,8 @@ class BookController {
         }
     }
 
-    public function getBooks($userId = null) {
-        return $this->bookModel->getBooks($userId);
+    public function getBooks($userId = null, $column = null, $order = null, $limit = null, $offset = null) {
+        return $this->bookModel->getBooks($userId, $column, $order, $limit, $offset);
     }
 
     public function getBookById($id) {
@@ -46,15 +46,14 @@ class BookController {
     }
 
     public function getBooksByPage($limit, $offset, $userId = null) {
-        if ($userId) {
-            $stmt = $this->pdo->prepare("SELECT * FROM books WHERE user_id = :userId LIMIT :limit OFFSET :offset");
-            $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
-        } else {
-            $stmt = $this->pdo->prepare("SELECT * FROM books LIMIT :limit OFFSET :offset");
+        if (!is_int($limit) || !is_int($offset)) {
+            throw new Exception("Limit and offset must be integers.");
         }
-        $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
-        $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $this->bookModel->getBooksByPage($limit, $offset, $userId);
+    }
+
+    public function getBooksPaginatedAndSorted($limit, $offset, $sortColumn, $sortOrder, $userId = null) {
+        return $this->bookModel->getBooksPaginatedAndSorted($limit, $offset, $sortColumn, $sortOrder, $userId);
     }
 }

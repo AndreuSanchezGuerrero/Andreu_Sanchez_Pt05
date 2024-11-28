@@ -1,0 +1,20 @@
+{
+    "name": "kelsier/online-library",
+    "description": "online-library",
+    "autoload": {
+        "psr-4": {
+            "Kelsier\\OnlineLibrary\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Andreu",
+            "email": "andreu.s.g30@gmail.com"
+        }
+    ],
+    "require": {
+        "google/auth": "^1.43",
+        "google/apiclient": "^2.18",
+        "hybridauth/hybridauth": "^3.11"
+    }
+}

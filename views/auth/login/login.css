@@ -77,3 +77,34 @@
 .register-prompt a:hover {
     text-decoration: underline;
 }
+
+
+.social-login {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.btn-google {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #db4437;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.btn-google i {
+    font-size: 20px;
+}
+
+.btn-google:hover {
+    background-color: #c23321;
+    text-decoration: none;
+    color: white;
+}

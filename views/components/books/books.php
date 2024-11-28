@@ -28,9 +28,18 @@ $isAjax = isset($_GET['ajax']) && $_GET['ajax'] == 'true';
             <table class="table">
                 <thead>
                     <tr>
-                        <th>ISBN</th>
-                        <th>Book name</th>
-                        <th>Author</th> 
+                        <th>
+                            ISBN
+                            <i class="sort-icon fas fa-sort-up" data-column="isbn" data-order="asc"></i>
+                        </th>
+                        <th>
+                            Book name
+                            <i class="sort-icon fas fa-sort-up" data-column="name" data-order="asc"></i>
+                        </th>
+                        <th>
+                            Author
+                            <i class="sort-icon fas fa-sort-up" data-column="author" data-order="asc"></i>
+                        </th>
                         <?php if ($userId): ?>
                             <th></th>
                         <?php endif; ?>
