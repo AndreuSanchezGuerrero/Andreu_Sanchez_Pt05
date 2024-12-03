@@ -108,3 +108,30 @@
     text-decoration: none;
     color: white;
 }
+
+.btn-github {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #24292e;;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.btn-github:hover {
+    background: #1a1e22;
+}
+
+.btn-github i {
+    font-size: 20px;
+}
+
+.g-recaptcha {
+    margin-top: 24px;
+}

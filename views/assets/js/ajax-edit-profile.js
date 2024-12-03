@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("editProfileForm");
     const saveButton = document.getElementById("saveProfileBtn");
 
-    // Elementos de entrada y vista previa
     const usernameInput = document.getElementById("username");
     const emailInput = document.getElementById("email");
     const bioInput = document.getElementById("bio");
@@ -14,19 +13,16 @@ document.addEventListener("DOMContentLoaded", function () {
     const previewBio = document.getElementById("preview-bio");
     const previewProfilePic = document.getElementById("preview-profilePic");
 
-    // Actualizar vista previa
     function updatePreview() {
         previewUsername.textContent = usernameInput.value;
         previewEmail.textContent = emailInput.value;
         previewBio.textContent = bioInput.value;
     }
 
-    // Listeners para cambios en los campos
     usernameInput.addEventListener("input", updatePreview);
     emailInput.addEventListener("input", updatePreview);
     bioInput.addEventListener("input", updatePreview);
 
-    // Actualización de la vista previa de la foto de perfil
     profilePicInput.addEventListener("change", function () {
         const file = profilePicInput.files[0];
         if (file) {
@@ -38,7 +34,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // Guardar cambios mediante AJAX
     saveButton.addEventListener("click", function () {
         const formData = new FormData(form);
 
@@ -53,10 +48,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     const jsonData = JSON.parse(data);
 
                     if (jsonData.success) {
-                        // Mostrar mensaje de éxito con tu sistema de alertas
                         showAlert(jsonData.message, "success");
                     } else {
-                        // Mostrar mensaje de error con tu sistema de alertas
                         showAlert(jsonData.message, "error");
                     }
                 } catch (error) {

@@ -26,8 +26,6 @@ CustomSessionHandler::remove('errorsRegister');
 
 ?>
 
-<div id="alert" class="alert"></div>
-
 <script>
 document.addEventListener("DOMContentLoaded", function() {
 
@@ -47,7 +45,6 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     if (loginError) {
-        console.log(loginError);
         showAlert(loginError, 'error');
     }
 
@@ -84,3 +81,5 @@ document.addEventListener("DOMContentLoaded", function() {
     <?php endif; ?>
 });
 </script>
+
+<div id="alert" class="alert"></div>

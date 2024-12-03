@@ -1,16 +1,47 @@
 <?php
+
+use Google\Service\Monitoring\Custom;
+
 require_once __DIR__ . '/../../../config/database/connection.php';
 require_once BASE_PATH . 'controllers/sessions/CustomSessionHandler.php'; 
-require_once BASE_PATH . 'controllers/users/UserController.php'; 
+require_once BASE_PATH . 'controllers/users/UserController.php';
+require_once BASE_PATH . 'controllers/users/OauthUserController.php'; 
+
+$userController = new UserController($pdo);
+$oauthController = new OAuthUserController($pdo);
 
 $userId = CustomSessionHandler::get('user_id');
-$userController = new UserController($pdo);
 $userData = $userController->getUserById($userId);
 
-$defaultProfilePic = BASE_URL . 'views/assets/img/default-user.png';
+
+if (!$userData) {
+    $userData = $oauthController->getUserById($userId);
+    CustomSessionHandler::set('is_oauth_user', true);
+    $isOAuthUser = true;
+    var_dump($isOAuthUser);
+
+    if (!$userData) {
+        $baseUsername = CustomSessionHandler::get('username') ?: 'user';
+        $randomPart = rand(10000000, 99999999) . substr(str_shuffle('abcdefghijklmnopqrstuvwxyz'), 0, 6);
+        $generatedUsername = strtolower($baseUsername) . '-' . $randomPart;
+
+        $newUserData = [
+            'id' => $userId,
+            'username' => $generatedUsername,
+            'email' => 'oAuthAccount@' . strtolower($generatedUsername) . '.com',
+            'bio' => '',
+            'photo_profile' => 'default-user.png'
+        ];
+
+        $oauthController->createOAuthUser($newUserData);
+
+        $userData = $oauthController->getUserById($userId);
+    }
+}
+
 $profilePicUrl = file_exists(BASE_PATH . 'views/assets/img/' . htmlspecialchars($userData['photo_profile'])) 
     ? BASE_URL . 'views/assets/img/' . htmlspecialchars($userData['photo_profile']) 
-    : $defaultProfilePic;
+    : BASE_URL . 'views/assets/img/default-user.png';
 ?>
 
 <!DOCTYPE html>

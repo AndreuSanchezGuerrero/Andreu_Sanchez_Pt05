@@ -1,27 +1,19 @@
 <?php
-require_once BASE_PATH . 'models/User.php';
+require_once BASE_PATH . 'models/OauthUser.php';
 
-class UserController {
+class OauthUserController {
     private $userModel;
 
     public function __construct($pdo) {
-        $this->userModel = new User($pdo);
+        $this->userModel = new OauthUser($pdo);
     }
 
-    public function createUser($username, $email, $password) {
+    public function createOAuthUser($data) {
         try {
-            return $this->userModel->createUser($username, $email, $password);
+            return $this->userModel->createOAuthUser($data);
         } catch (PDOException $e) {
-            if ($e->errorInfo[1] == 1062) {
-                throw new Exception("The username or email already exists.");
-            } else {
-                throw new Exception("Error trying to create user: " . $e->getMessage());
-            }
+            throw new Exception("Error trying to create user: " . $e->getMessage());
         }
-    }
-
-    public function getAllUsers() {
-        return $this->userModel->getAllUsers();
     }
 
     public function getUserById($userId) {

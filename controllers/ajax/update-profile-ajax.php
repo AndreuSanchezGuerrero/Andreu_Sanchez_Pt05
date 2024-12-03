@@ -1,12 +1,17 @@
 <?php
 require_once __DIR__ . '../../../config/database/connection.php';
 require_once BASE_PATH . 'controllers/users/UserController.php';
+require_once BASE_PATH . 'controllers/users/OauthUserController.php';
 require_once BASE_PATH . 'controllers/sessions/CustomSessionHandler.php';
 header('Content-Type: application/json');
 
+// Andreu Sánchez Guerrero
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
 $response = ["success" => false, "message" => "Unknown error."];
 
-// helper function
 function jsonResponse($success, $message) {
     echo json_encode(["success" => $success, "message" => $message]);
     exit();
@@ -36,8 +41,14 @@ function isStrongPassword($password) {
 try {
     $userController = new UserController($pdo);
     $userId = CustomSessionHandler::get('user_id');
+    $isOAuthUser = CustomSessionHandler::get('is_oauth_user');
 
-    // form data
+
+    $userController = new UserController($pdo);
+    $oauthController = new OAuthUserController($pdo);
+
+    $controller = $isOAuthUser ? $oauthController : $userController;
+
     $username = $_POST['username'] ?? null;
     $email = $_POST['email'] ?? null;
     $bio = $_POST['bio'] ?? null;
@@ -45,22 +56,29 @@ try {
     $newPassword = $_POST['newPassword'] ?? null;
     $confirmNewPassword = $_POST['confirmNewPassword'] ?? null;
 
-    // verify username
-    if ($username && $username !== $userController->getUserById($userId)['username']) {
-        if ($userController->getUserByUsername($username)) {
+    $userData = $controller->getUserById($userId);
+
+    if ($username && $username !== $userData['username']) {
+        if ($controller->getUserByUsername($username)) {
             jsonResponse(false, "The username is already registered.");
         }
     }
 
-    // verify email
-    if ($email && $email !== $userController->getUserById($userId)['email']) {
-        if ($userController->getUserByEmail($email)) {
+    if ($email && $email !== $userData['email']) {
+        if ($controller->getUserByEmail($email)) {
             jsonResponse(false, "The email is already registered.");
+        }
+        if ($controller === $oauthController) {
+            jsonResponse(false, "You cannot change the email of an OAuth account.");
         }
     }
 
-    // verify password
-    if ($currentPassword && $newPassword && $confirmNewPassword) {
+    if ($currentPassword && $newPassword && $confirmNewPassword && $currentPassword !== $newPassword) {
+
+        if ($controller === $oauthController) {
+            jsonResponse(false, "You cannot change the password of an OAuth account.");
+        }
+
         $user = $userController->getUserById($userId);
 
         if (!password_verify($currentPassword, $user['password'])) {
@@ -76,18 +94,15 @@ try {
             jsonResponse(false, $passwordStrength);
         }
 
-        // password encryption
         $hashedPassword = password_hash($newPassword, PASSWORD_BCRYPT);
-        // update password
         $userController->updateUserPassword($userId, $hashedPassword);
     }
 
-    if ($userController->updateUserProfile($userId, $username, $email, $bio)) {
+    if ($controller->updateUserProfile($userId, $username, $email, $bio)) {
         $response["success"] = true;
         $response["message"] = "Profile updated successfully.";
     }
 
-    // Procesar foto de perfil
     if (!empty($_FILES['profilePic']['name'])) {
         $uploadDir = BASE_PATH . 'views/assets/img/';
         $fileExtension = pathinfo($_FILES['profilePic']['name'], PATHINFO_EXTENSION);
@@ -96,7 +111,7 @@ try {
 
         if (move_uploaded_file($_FILES['profilePic']['tmp_name'], $uploadFile)) {
             $profilePicPath = $newFileName;
-            if ($userController->updateUserProfilePicture($userId, $profilePicPath)) {
+            if ($controller->updateUserProfilePicture($userId, $profilePicPath)) {
                 $response["success"] = true;
                 $response["message"] = "Profile and picture updated successfully.";
             }

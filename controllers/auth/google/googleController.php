@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../../config/env.php';
+require_once __DIR__ . '/../../../config/env.php';
 require_once BASE_PATH . 'vendor/autoload.php'; 
 
 use Google\Service\Oauth2 as Google_Service_Oauth2;

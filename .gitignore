@@ -2,3 +2,4 @@
 /vendor/
 /config/env.php
 /config/google.php
+/config/hybrid-auth.php
