@@ -1,7 +1,4 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
 // Andreu Sánchez Guerrero
 if (session_status() == PHP_SESSION_NONE) {
@@ -33,8 +30,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body class="caja">
-    <?php include BASE_PATH . 'views/components/alert/alert.php'; ?>
     <div class="login-container">
+        <?php include BASE_PATH . 'views/components/alert/alert.php'; ?>
         <?php include BASE_PATH . 'views/components/header/header.php'; ?>
         <h2 class="login-title">Login</h2>
         <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST" class="form-login">
