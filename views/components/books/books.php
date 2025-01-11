@@ -1,79 +1,70 @@
 <?php
 // Andreu Sánchez Guerrero
+
 include BASE_PATH . 'controllers/books/bookListController.php';
 
 $isAjax = isset($_GET['ajax']) && $_GET['ajax'] == 'true';
+
 ?>
 
 <?php if (!$isAjax): ?>
 <div class="col-6">
     <div class="header-section">
         <?php if ($userId): ?>
-            <h2>Your books</h2>
+            <p class="title-page">Your books</p>
         <?php else: ?>
-            <h2>Public books</h2>
+            <p class="title-page">Public books</p>
         <?php endif; ?>
-        <div id="pagination-options">
-            <?php include BASE_PATH . 'views/components/pagination/pagination-option.php'; ?>
+
+        <div class="search-container">
+            <form id="search-form" action="index.php" method="GET">
+                <div class="search-wrapper">
+                    <input 
+                        type="text" 
+                        name="search" 
+                        id="search-input" 
+                        placeholder="Search for a book..." 
+                        class="search-input">
+                    <button type="submit" class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </form>
         </div>
-        <div id="pagination-controls">
-            <?php include BASE_PATH . 'views/components/pagination/pagination.php'; ?>
-        </div>
+    </div>
+    <div id="pagination-options">
+        <?php include BASE_PATH . 'views/components/pagination/pagination-option.php'; ?>
     </div>
 <?php endif; ?>
 
-<div id="book-table">
-    <?php if (!empty($booksToUse)): ?>
-        <?php if (!$isAjax): ?>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>
-                            ISBN
-                            <i class="sort-icon fas fa-sort-up" data-column="isbn" data-order="asc"></i>
-                        </th>
-                        <th>
-                            Book name
-                            <i class="sort-icon fas fa-sort-up" data-column="name" data-order="asc"></i>
-                        </th>
-                        <th>
-                            Author
-                            <i class="sort-icon fas fa-sort-up" data-column="author" data-order="asc"></i>
-                        </th>
-                        <?php if ($userId): ?>
-                            <th></th>
-                        <?php endif; ?>
-                    </tr>
-                </thead>
-                <tbody>
-        <?php endif; ?>
-
+<div id="book-cards" class="card-container">
+    <?php if (!empty($booksToShow)): ?>
         <?php foreach ($booksToShow as $book): ?>
-            <tr>
-                <td><?= htmlspecialchars($book['isbn']); ?></td>  
-                <td><?= htmlspecialchars($book['name']); ?></td>  
-                <td><?= htmlspecialchars($book['author']); ?></td>  
-                <?php if ($userId): ?>
-                <td class="text-right">
-                    <a href="index.php?action=edit&id=<?= $book['id']; ?>" class="btn btn-warning btn-sm">
-                        <i class="fas fa-pencil-alt"></i>
-                    </a>
-                    <a href="index.php?action=delete&id=<?= $book['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure to delete this book?');">
-                        <i class="fas fa-trash"></i>
-                    </a>
-                </td>
-                <?php endif; ?>
-            </tr>
+            <div class="card">
+                <img src="<?php echo BASE_URL; ?>views/assets/img/covers/<?php echo htmlspecialchars($book['cover'] ?? 'default-cover.jpg'); ?>" 
+                    alt="Cover of <?php echo htmlspecialchars($book['name']); ?>" class="card-img">
+                <div class="card-content">
+                    <p class="card-isbn"><?= htmlspecialchars($book['isbn']); ?></p>
+                    <h3 class="card-title"><?= htmlspecialchars($book['name']); ?></h3>
+                    <p class="card-author"><?= htmlspecialchars($book['author']); ?></p>
+                    <?php if ($userId): ?>
+                        <div class="card-actions">
+                            <a href="index.php?action=edit&id=<?= $book['id']; ?>" class="btn btn-warning btn-sm">
+                                <i class="fas fa-pencil-alt"></i> Edit
+                            </a>
+                            <a href="index.php?action=delete&id=<?= $book['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure to delete this book?');">
+                                <i class="fas fa-trash"></i> Delete
+                            </a>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
         <?php endforeach; ?>
-
-        <?php if (!$isAjax): ?>
-                </tbody>
-            </table>
-        <?php endif; ?>
     <?php else: ?>
-        <p>There are no books available.</p>
+        <p>No books available.</p>
     <?php endif; ?>
 </div>
+
 
 <?php if (!$isAjax): ?>
     <div id="pagination-controls2">

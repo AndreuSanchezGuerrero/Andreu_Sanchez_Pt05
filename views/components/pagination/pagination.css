@@ -2,6 +2,8 @@
 .pagination {
     display: flex;
     justify-content: center; 
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .pagination ul {
@@ -17,20 +19,21 @@
 .pagination ul li a {
     display: inline-block;
     padding: 10px 15px;
-    background-color: #C44F3B; 
-    color: white; 
+    background-color: #fff; 
+    color: #0A1A24; 
     text-decoration: none;
     border-radius: 5px;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .pagination ul li a:hover {
-    background-color: #582017; 
+    background-color: #0A1A24; 
+    color: #539DF3;
 }
 
 .pagination ul li a.active {
-    background-color: #582017; 
-    color: white;
+    background-color: #0A1A24; 
+    color: #539DF3;
     pointer-events: none; 
 }
 
@@ -41,41 +44,57 @@
     cursor: not-allowed;
 }
 
+.pagination-wrapper {
+    display: inline-flex;
+    border: 2px solid #4A90E2;
+    border-radius: 8px;
+    padding: 5px 15px;
+    background-color:#0A1A24;
+    gap: 10px;
+    font-size: 16px;
+}
+
 .form-pagination {
+    display: flex;
+    align-items: center;
+}
+
+.form-pagination label {
+    margin-right: 10px;
+    color: #fff;
+    font-size: 16px;
+}
+
+.select-container {
+    position: relative;
+    display: inline-block;
+}
+
+.select-container select {
+    padding: 8px 30px 8px 10px;
+    font-size: 16px;
+    border: none;
+    background-color: #0A1A24;
+    color: #4A90E2;
+    appearance: none;
+}
+
+.select-container::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    pointer-events: none; /* No interferir con el clic del usuario */
+    background-image: url('/views/assets/img/flecha.svg'); /* Ruta de la imagen */
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 14px; /* Ajusta según el tamaño de tu imagen */
+    height: 14px;
+}
+
+
+#pagination-options {
     text-align: center;
-    font-size: 16px;
-    font-family: Arial, sans-serif;
-}
-
-.form-pagination select {
-    padding: 8px 10px;
-    font-size: 16px;
-    border: 1px solid #C44F3B;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-    color: #333;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
-}
-
-.form-pagination select:focus {
-    outline: none;
-    border-color: #773131;
-    background-color: #fff;
-}
-
-.form-pagination select:hover {
-    background-color: #fff;
-}
-
-.form-pagination select option {
-    padding: 8px;
-}
-
-.form-pagination option {
-    background: white;
-    color: #333;
-}
-
-.form-pagination input[type="hidden"] {
-    display: none;
+    margin-bottom: 30px;
 }

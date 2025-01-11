@@ -8,6 +8,7 @@ class UserController {
         $this->userModel = new User($pdo);
     }
 
+    // Create methods
     public function createUser($username, $email, $password) {
         try {
             return $this->userModel->createUser($username, $email, $password);
@@ -20,6 +21,7 @@ class UserController {
         }
     }
 
+    // Read methods
     public function getAllUsers() {
         return $this->userModel->getAllUsers();
     }
@@ -36,14 +38,11 @@ class UserController {
         return $this->userModel->findUserByEmail($email);
     }
 
-    public function deleteUser($id) {
-        try {
-            return $this->userModel->deleteUser($id);
-        } catch (PDOException $e) {
-            throw new Exception("Error trying to delete user: " . $e->getMessage());
-        }
+    public function getUserBySearch($query) {
+        return $this->userModel->getUsersBySearch($query);
     }
 
+    // Update methods
     public function updateUserProfile($userId, $username, $email, $bio) {
         return $this->userModel->updateUserProfile($userId, $username, $email, $bio);
     }
@@ -54,6 +53,15 @@ class UserController {
 
     public function updateUserPassword($userId, $hashedPassword) {
         return $this->userModel->updateUserPassword($userId, $hashedPassword);
+    }
+
+    // Delete methods
+    public function deleteUser($id) {
+        try {
+            return $this->userModel->deleteUser($id);
+        } catch (PDOException $e) {
+            throw new Exception("Error trying to delete user: " . $e->getMessage());
+        }
     }
 }
 ?>

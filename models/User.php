@@ -6,6 +6,7 @@ class User {
         $this->pdo = $pdo;
     }
 
+    // Create methods
     public function createUser($username, $email, $password) {
         $sql = "INSERT INTO users (username, email, password) VALUES (:username, :email, :password)";
         $stmt = $this->pdo->prepare($sql);
@@ -18,6 +19,7 @@ class User {
         return $this->pdo->lastInsertId();
     }
 
+    // Read methods (get or find)
     public function getAllUsers() {
         $sql = "SELECT * FROM users";
         $stmt = $this->pdo->query($sql);
@@ -31,7 +33,13 @@ class User {
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
-    
+
+    public function getUsersBysearch($query) {
+        $sql = "SELECT * FROM users WHERE username LIKE :query";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(['query' => '%' . $query . '%']);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }    
 
     public function findUserByUsername($username) {
         $sql = "SELECT * FROM users WHERE username = :username";
@@ -48,13 +56,7 @@ class User {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function deleteUser($id) {
-        $sql = "DELETE FROM users WHERE id = :id";
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-        return $stmt->execute();
-    }
-
+    // Update methods
     public function updateUserProfile($userId, $username, $email, $bio) {
         $sql = "UPDATE users SET username = ?, email = ?, bio = ? WHERE id = ?";
         $stmt = $this->pdo->prepare($sql);
@@ -72,6 +74,14 @@ class User {
         $stmt->bindParam(':password', $hashedPassword);
         $stmt->bindParam(':id', $userId, PDO::PARAM_INT);
         return $stmt->execute();
-    }  
+    }
+    
+    // Delete methods
+    public function deleteUser($id) {
+        $sql = "DELETE FROM users WHERE id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
 }
 ?>

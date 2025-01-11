@@ -7,6 +7,8 @@ require_once BASE_PATH . 'controllers/sessions/CustomSessionHandler.php';
 require_once BASE_PATH . 'controllers/users/UserController.php';
 require_once BASE_PATH . 'controllers/users/OauthUserController.php'; 
 
+CustomSessionHandler::set('profile', true);
+
 $userController = new UserController($pdo);
 $oauthController = new OAuthUserController($pdo);
 
@@ -18,7 +20,6 @@ if (!$userData) {
     $userData = $oauthController->getUserById($userId);
     CustomSessionHandler::set('is_oauth_user', true);
     $isOAuthUser = true;
-    var_dump($isOAuthUser);
 
     if (!$userData) {
         $baseUsername = CustomSessionHandler::get('username') ?: 'user';

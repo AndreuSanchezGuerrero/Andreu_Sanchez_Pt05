@@ -10,6 +10,8 @@ require_once 'controllers/sessions/CustomSessionHandler.php';
 require_once 'controllers/books/BookController.php';
 require_once 'controllers/auth/AuthController.php';
 
+CustomSessionHandler::remove('profile');
+
 $isEdit = false;
 $bookToEdit = null;
 
@@ -20,7 +22,12 @@ if ($userId) {
     $authController->checkSessionTimeout();
 }
 
-if (isset($_GET['ajax']) && $_GET['ajax'] == 'true') {
+if(isset($_GET['ajax']) && $_GET['ajax'] == 'true' && $isAdmin) {
+    include BASE_PATH . 'controllers/users/userSearchController.php';
+    exit();
+}
+
+if (isset($_GET['ajax']) && $_GET['ajax'] == 'true' && !$isAdmin) {
     include_once 'controllers/ajax/ajax-booksController.php';
     exit();
 }

@@ -1,6 +1,6 @@
 <?php
 // Andreu Sánchez Guerrero
-$booksPerPage = CustomSessionHandler::get('booksPerPage') ?? (isset($_COOKIE['booksPerPage']) ? (int)$_COOKIE['booksPerPage'] : 5);
+$booksPerPage = CustomSessionHandler::get('booksPerPage') ?? (isset($_COOKIE['booksPerPage']) ? (int)$_COOKIE['booksPerPage'] : 4);
 $totalBooks = count($booksToUse);
 $totalPages = $totalBooks > 0 ? ceil($totalBooks / $booksPerPage) : 1;
 

@@ -1,38 +1,87 @@
 header {
-    background-color: #C44F3B;
+    background-color: #0A1A24;
     padding: 15px 25px;
-}
-
-.icon-house {
-    color: #582017;
-    font-size: 35px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
 }
 
 .navbar {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    gap: 12px;
 }
 
-.profile-icon {
+.nav-left {
+    display: flex;
+    align-items: center;
+}
+
+.nav-title {
+    font-size: 1.5rem;
+    color: #ffffff;
+    text-align: left;
+    flex-grow: 1;
+}
+
+.nav-right {
+    display: none; /* Ocultamos el tintero en móvil */
+}
+
+.icon-user {
     width: 50px;
     height: 50px;
     cursor: pointer;
+    transition: transform 0.2s ease-in-out;
 }
 
-.admin-icon {
-    width: 62px;
-    height: 57px;
+.icon-home {
+    width: 55px;
+    height: 55px;
     cursor: pointer;
+    transition: transform 0.2s ease-in-out;
 }
+
+.icon-home:hover,
+.icon-user:hover {
+    transform: scale(1.1); /* Efecto hover */
+}
+
+/* Estilos para pantallas más grandes (desktop) */
+@media (min-width: 1024px) {
+    .navbar {
+        justify-content: space-between;
+    }
+
+    .nav-left {
+        gap: 15px; /* Mayor espacio entre íconos */
+    }
+
+    .nav-title {
+        text-align: center;
+        font-size: 1.8rem;
+    }
+
+    .nav-right {
+        display: flex; 
+        align-items: center;
+    }
+
+    .icon-tintero {
+        width: 180px;
+        height: 52px;
+    }
+}
+
 
 .dropdown-menu {
     position: absolute;
-    right: -25px;
-    background-color: white;
-    box-shadow: 0 8px 16px #C44F3B;
-    border-radius: 5px;
+    background-color: #0A1A24;
+    box-shadow: 0 8px 16px #4A90E2;
+    border-radius: 20px;
     min-width: 130px;
     z-index: 1;
+    padding: 10px;
 }
 
 .profile-menu {
@@ -41,7 +90,7 @@ header {
 
 .dropdown-link {
     display: flex;
-    color: #333;
+    color: #ffffff;
     padding: 10px;
     align-items: center;  
     padding: 8px 10px;
@@ -54,7 +103,7 @@ header {
 }
 
 .dropdown-link:hover {
-    background-color: #d3cccc;
+    color: #4A90E2;
     cursor: pointer;
 }
 
@@ -74,8 +123,7 @@ header {
 }
 
 .nav-title {
-    font-family: 'Georgia', serif; 
-    font-size: 24px;
+    font-size: 30px;
     color: white;
     text-align: center;
     flex-grow: 1; 

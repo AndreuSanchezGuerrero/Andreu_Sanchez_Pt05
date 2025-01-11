@@ -1,18 +1,9 @@
 $(document).ready(function () {
-    // Variables globales para mantener el estado
     let currentColumn = null;
     let currentOrder = null;
     let currentPage = 1;
 
-    // Función principal para cargar libros (paginación y ordenación)
     function loadBooks(page = currentPage, booksPerPage = $('#booksPerPage').val(), column = currentColumn, order = currentOrder) {
-        console.log('Datos enviados al servidor:', {
-            page: page,
-            booksPerPage: booksPerPage,
-            column: column,
-            order: order
-        });
-
         $.ajax({
             url: 'index.php',
             type: 'GET',
@@ -25,52 +16,74 @@ $(document).ready(function () {
             },
             dataType: 'json',
             success: function (response) {
-                console.log('Respuesta recibida del servidor:', response);
+                $('#book-cards').html(response.tableData);
+                $('#pagination-controls2').html(response.pagination);
 
-                // Actualizar la tabla de libros
-                $('#book-table tbody').html(response.tableData);
-
-                // Actualizar los controles de paginación
-                $('#pagination-controls').empty().html(response.pagination);
-                $('#pagination-controls2').empty().html(response.pagination);
-
-                // Actualizar estado global
                 currentPage = page;
-                currentColumn = response.column || currentColumn; // Mantener columna si no cambia
-                currentOrder = response.order || currentOrder;    // Mantener orden si no cambia
+                currentColumn = response.column || currentColumn;
+                currentOrder = response.order || currentOrder;
+                applyCardStyles();
             },
-            error: function (textStatus, errorThrown) {
-                console.error('Error al cargar los libros:', textStatus, errorThrown);
-                alert('Error al cargar los libros: ' + textStatus + ' - ' + errorThrown);
+            error: function (xhr, status, error) {
+                console.error('Error al cargar los libros:', status, error);
+                alert('Error al cargar los libros.');
             }
         });
     }
 
-    // Manejar clics en los enlaces de paginación
     $(document).on('click', '.pagination-link', function (e) {
         e.preventDefault();
-        let page = $(this).data('page');
-        console.log('Cambiando a la página:', page);
+        const page = $(this).data('page');
         loadBooks(page, $('#booksPerPage').val(), currentColumn, currentOrder);
     });
 
-    // Manejar cambio en libros por página
     $('#booksPerPage').change(function () {
-        let booksPerPage = $(this).val();
-        console.log('Cambiando libros por página a:', booksPerPage);
-        loadBooks(1, booksPerPage, currentColumn, currentOrder); // Reiniciar a la primera página
+        const booksPerPage = $(this).val();
+        loadBooks(1, booksPerPage, currentColumn, currentOrder);
     });
 
-    // Manejar clics en los íconos de ordenación
     $(document).on('click', '.sort-icon', function () {
         const column = $(this).data('column');
         const order = $(this).data('order') === 'asc' ? 'desc' : 'asc';
-
-        // Cambiar el atributo para el próximo clic
         $(this).data('order', order);
-        console.log('Ordenando por columna:', column, 'en orden:', order);
-
-        // Reiniciar a la primera página al ordenar
         loadBooks(1, $('#booksPerPage').val(), column, order);
     });
+    
+    function applyCardStyles() {
+        $('.card').each(function () {
+            $(this).css({
+                'background': '#1E2A38',
+                'border-radius': '15px',
+                'box-shadow': '0 4px 10px rgba(0, 0, 0, 0.2)',
+                'padding': '30px',
+                'max-width': '300px',
+                'margin': '0 auto'
+            });
+    
+            $(this).find('.card-img').css({
+                'width': '100%',
+                'height': '200px',
+                'border-radius': '20px',
+                'margin-bottom': '15px',
+                'object-fit': 'cover'
+            });
+        });
+    
+        $('.card').hover(
+            function () {
+                $(this).css({
+                    'transform': 'translateY(-5px)',
+                    'box-shadow': '0 8px 15px rgba(0, 0, 0, 0.3)'
+                });
+            },
+            function () {
+                $(this).css({
+                    'transform': 'none',
+                    'box-shadow': '0 4px 10px rgba(0, 0, 0, 0.2)'
+                });
+            }
+        );
+    }
 });
+
+

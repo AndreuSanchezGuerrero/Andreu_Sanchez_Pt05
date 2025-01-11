@@ -9,10 +9,15 @@
 @import url(components/form/from.css);
 @import url(components/pagination/pagination.css);
 
-body {
-    font-family: Arial, sans-serif;
-    background-image: url(assets/img/biblio.avif);
+body, html {
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: josefin sans, sans-serif;
+    background-image: url(assets/img/biblio.png);
     padding: 20px;
     background-size: cover; 
     background-position: center; 
@@ -20,18 +25,20 @@ body {
     background-attachment: fixed;
 }
 
-h2 {
-    color: #C44F3B;
-    font-size: 2em;
+.container {
+    max-width: 100%;
+    margin: 0 auto;
+    background: #203542;
+    padding: 0px;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    width: 100%;
 }
 
-.container {
-    max-width: 720px;
-    margin: 30px auto;
-    background: #fff;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 0 15px #000000;
+@media (min-width: 1024px) {
+    .container {
+        max-width: 900px;
+    }
 }
 
 #margin {
